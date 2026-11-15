@@ -13,7 +13,27 @@ A continuidade não significa que todos os dispositivos terão as mesmas capacid
 
 **Princípio central:** a Nero permanece a mesma assistente; a forma de presença, os recursos disponíveis e a interface se adaptam ao dispositivo.
 
-## 2. Objetivos de produto
+
+## 2. Princípio universal: apoio para qualquer pessoa
+
+A Nero Continuum é um produto de apoio pessoal e profissional para **qualquer usuário, independentemente de profissão, setor, formação, experiência ou condição de trabalho**. A arquitetura e a experiência não podem pressupor que o usuário seja engenheiro, profissional técnico, empregado de uma empresa ou sequer esteja trabalhando.
+
+A Nero deve adaptar linguagem, profundidade, exemplos, interface e recursos ao contexto declarado ou legitimamente compreendido da pessoa. O usuário pode utilizá-la, entre outras possibilidades, para:
+- organização pessoal, rotina, lembretes e planejamento;
+- estudo, aprendizagem, pesquisa e desenvolvimento de habilidades;
+- comunicação, escrita, tradução e acessibilidade;
+- planejamento de viagens, eventos, compras e atividades cotidianas;
+- criatividade, hobbies, projetos pessoais e conversação;
+- trabalho autônomo, empreendedorismo, gestão e atividades empresariais;
+- profissões técnicas, científicas, administrativas, criativas, comerciais, educacionais, de saúde e demais áreas, respeitando os limites e requisitos próprios de cada domínio.
+
+Esses exemplos não formam uma lista fechada nem criam categorias de usuários com privilégios diferentes. O núcleo de continuidade, identidade, memória controlada, permissões e proteção é comum; o conteúdo e as ferramentas são adaptados ao objetivo de cada pessoa.
+
+A especialização em engenharia elétrica é um **cenário inicial de validação profunda**, escolhido por oferecer tarefas concretas e critérios técnicos verificáveis. Ela não define o público-alvo exclusivo, não deve orientar toda a interface como se todos fossem engenheiros e não pode limitar a expansão para outros perfis e necessidades.
+
+A experiência inicial deve perguntar ou inferir com cautela o objetivo da tarefa, não presumir profissão. O usuário pode corrigir o contexto a qualquer momento. A Nero não deve inferir atributos pessoais sensíveis nem restringir recursos com base em estereótipos profissionais.
+
+## 3. Objetivos de produto
 
 1. Permitir iniciar uma tarefa em um dispositivo e continuá-la em outro sem reconstruir manualmente todo o contexto.
 2. Manter identidade, preferências e memória individual consistentes, com escopos separados e controles do usuário.
@@ -22,7 +42,7 @@ A continuidade não significa que todos os dispositivos terão as mesmas capacid
 5. Tornar visível ao usuário o que está sincronizado, o que está apenas local, quais dispositivos estão conectados e quais permissões estão ativas.
 6. Permitir continuidade parcial offline e reconciliação segura quando a conexão retornar.
 
-## 3. Modelo de continuidade: passaporte de contexto
+## 4. Modelo de continuidade: passaporte de contexto
 
 A unidade central não será uma cópia indiscriminada de conversas. Será um **passaporte de contexto** estruturado e controlado pelo usuário, associado a uma tarefa ou projeto.
 
@@ -41,7 +61,7 @@ Cada informação deve indicar sua proveniência: fornecida pelo usuário, medid
 
 O usuário pode revisar, corrigir, exportar, apagar ou limitar o passaporte. A interface deve explicar, em linguagem simples, **o que a Nero está mantendo e por quê**.
 
-## 4. Ecossistema de dispositivos e papéis
+## 5. Ecossistema de dispositivos e papéis
 
 A arquitetura terá um núcleo de identidade/contexto e adaptadores específicos por plataforma e categoria de dispositivo.
 
@@ -58,7 +78,7 @@ A arquitetura terá um núcleo de identidade/contexto e adaptadores específicos
 
 A tabela é uma direção de produto, não uma afirmação de compatibilidade já existente. Cada linha exige uma matriz de compatibilidade com fabricante/modelo, sistema operacional e versão, APIs disponíveis, permissões, estado em primeiro/segundo plano, funcionamento offline, limitações e testes.
 
-## 5. Continuidade de sessão e handoff
+## 6. Continuidade de sessão e handoff
 
 - O usuário pode iniciar uma tarefa no celular e transferi-la para tablet ou computador, ou receber no relógio um resumo/ação curta vinculada à mesma tarefa.
 - O dispositivo de destino recebe somente o passaporte e os artefatos que o usuário autorizou para aquele projeto e finalidade.
@@ -67,7 +87,7 @@ A tabela é uma direção de produto, não uma afirmação de compatibilidade j�
 - A continuidade não mantém microfone, câmera, localização ou notificações ativos em segundo plano por inferência. Cada uso exige permissão e indicação compatíveis com a plataforma.
 - O usuário pode encerrar uma sessão ou remover um dispositivo sem apagar automaticamente seus projetos, e pode excluir os dados conforme os controles de retenção.
 
-## 6. Arquitetura lógica
+## 7. Arquitetura lógica
 
 Componentes propostos:
 1. **Nero Identity & Session:** identidade da conta, dispositivos confiáveis, sessões, autenticação e revogação.
@@ -81,7 +101,7 @@ Componentes propostos:
 
 Os clientes não recebem chaves globais ou autoridade administrativa. A autorização é verificada no backend e também reforçada localmente quando necessário. Um adaptador não pode ampliar seu próprio escopo.
 
-## 7. Memória, privacidade e isolamento
+## 8. Memória, privacidade e isolamento
 
 - Separar memória pessoal do usuário, contexto de cada projeto, contexto temporário de tarefa e histórico privado de cada agente.
 - Nero e Nyx mantêm identidades e memórias próprias; compartilhar um passaporte não funde suas memórias nem altera permissões.
@@ -93,7 +113,7 @@ Os clientes não recebem chaves globais ou autoridade administrativa. A autoriza
 - O usuário pode consultar dispositivos conectados, permissões concedidas, contexto sincronizado, histórico de handoffs e revogar cada integração.
 - Criptografia em trânsito e em repouso, gestão segura de chaves, retenção limitada e exclusão de cópias/cache/índices devem ser definidos antes de produção.
 
-## 8. Offline e conflitos
+## 9. Offline e conflitos
 
 Quando não houver internet, o dispositivo poderá manter rascunhos locais e executar somente funções expressamente suportadas offline. Ao reconectar:
 - validar novamente conta, sessão e permissões;
@@ -104,7 +124,7 @@ Quando não houver internet, o dispositivo poderá manter rascunhos locais e exe
 
 O modo offline não pode contornar revogação já conhecida localmente, controles de emergência ou limites de segurança. O estado de emergência do ADR-0017 prevalece sobre a continuidade.
 
-## 9. Segurança e uso contextual
+## 10. Segurança e uso contextual
 
 - Conteúdo visto por câmera, recebido de notificações, documentos, páginas ou dispositivos é dado não confiável; não pode conceder autoridade nem alterar políticas.
 - Óculos inteligentes não devem filmar, fotografar ou transmitir continuamente de forma oculta. Captura e análise devem ser visíveis e autorizadas, com controles físicos e do sistema quando disponíveis.
@@ -114,7 +134,7 @@ O modo offline não pode contornar revogação já conhecida localmente, control
 - Em ambientes industriais, elétricos ou de risco físico, a Nero oferece informação e apoio; não substitui procedimentos, profissional habilitado, bloqueio/etiquetagem, validação local ou proteções de segurança.
 - O dispositivo pode perder conexão, bateria ou precisão; a interface deve indicar limitações e nunca inventar que uma ação foi concluída.
 
-## 10. Evolução progressiva e MVP
+## 11. Evolução progressiva e MVP
 
 A implementação será incremental, sem bloquear a entrega do assistente móvel.
 
@@ -127,7 +147,7 @@ A implementação será incremental, sem bloquear a entrega do assistente móvel
 **Fase 2 — Celular e tablet**
 - Validar fluxo Android primeiro e mapear limites iOS.
 - Implementar retomada de projeto e sincronização com controle de conflitos.
-- Testar cenário de engenharia elétrica: visita em campo no celular, fotos/documentos autorizados, análise e diagrama no tablet, continuidade sem recomeçar a conversa.
+- Validar um conjunto diverso de tarefas pessoais e profissionais. Incluir engenharia elétrica como primeiro cenário técnico aprofundado, ao lado de cenários cotidianos e de aprendizagem, sem tornar a experiência exclusiva de uma profissão.
 
 **Fase 3 — Computador**
 - Definir cliente desktop ou experiência web autenticada.
@@ -148,7 +168,7 @@ A implementação será incremental, sem bloquear a entrega do assistente móvel
 - Expandir por adaptadores e matriz de compatibilidade.
 - Reaproveitar os contratos de identidade, contexto, consentimento e auditoria para Nero Box/Robot, sem antecipar sua construção.
 
-## 11. Critérios de aceite
+## 12. Critérios de aceite
 
 1. Uma tarefa iniciada em um dispositivo pode ser retomada em outro sem perder decisões, proveniência e pendências.
 2. O usuário consegue ver, editar, exportar e apagar o contexto sincronizado.
@@ -163,7 +183,7 @@ A implementação será incremental, sem bloquear a entrega do assistente móvel
 11. Continuidade e handoff respeitam o interruptor de emergência e todas as salvaguardas.
 12. Testes de segurança incluem perda/roubo de dispositivo, sessão expirada, replay de operação, prompt injection em conteúdo externo, revogação offline/online e tentativa de acesso cruzado entre contas.
 
-## 12. Fora de escopo e ressalvas
+## 13. Fora de escopo e ressalvas
 
 - Não prometer que Nero funcionará em qualquer smartwatch ou óculos inteligente; a compatibilidade depende do fabricante, APIs, certificações, sistema operacional e permissões.
 - Não prometer acesso universal a aplicativos, notificações, câmeras, microfones ou sensores.
@@ -171,6 +191,6 @@ A implementação será incremental, sem bloquear a entrega do assistente móvel
 - Não tornar o hardware físico requisito para o lançamento do Continuum.
 - Não tratar este ADR como prova de que sincronização multi-dispositivo, adaptadores, wearables ou óculos já foram implementados.
 
-## 13. Estado atual
+## 14. Estado atual
 
 Este ADR registra a decisão e o roteiro. Na data de aprovação, o projeto ainda não possui serviço de contexto persistente, sincronização multi-dispositivo, registro de dispositivos, handoff, adaptador de smartwatch ou integração com óculos inteligentes implementados e validados. O backend atual é um protótipo sem autenticação de usuário e não deve ser exposto em produção. A próxima etapa técnica é definir e testar os contratos de identidade, passaporte de contexto e autorização antes de ampliar integrações.
