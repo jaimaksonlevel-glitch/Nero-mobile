@@ -164,6 +164,18 @@ Ver ADR-0008 a ADR-0027 para requisitos e critérios de aceite. Esta seção des
 - Recomenda começar pela Fase 0: autenticação, isolamento por usuário/tenant, autorização server-side, gestão de segredos, limites de abuso e observabilidade.
 - **É um modelo de ameaças e roteiro; os controles ainda não estão implementados nem validados.**
 
+
+
+### Programa Alpha fechado — ADR-0031
+
+- Define o criador como usuário Alpha principal e um grupo inicial de até dez participantes convidados.
+- Participantes terão contas individuais e usarão Nero como única personalidade visível; Nyx e Rafael permanecem exclusivos do criador como personas acessíveis.
+- Nyx supervisiona qualidade e segurança por sinais técnicos minimizados e agregados, sem acesso a conversas, arquivos, memórias ou identificadores individuais dos participantes.
+- O Alpha inicial não precisa de organizações ou hierarquias corporativas, mas exige isolamento server-side entre todas as contas.
+- Convites serão únicos, expiráveis e revogáveis; participantes podem sair e controlar permissões.
+- O grupo só será aberto após autenticação, isolamento, telemetria protegida, transparência, revogação e critérios de segurança serem implementados e testados.
+- **É uma especificação do programa; convites, autenticação e painel ainda não foram implementados.**
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -202,6 +214,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0028-nyx-supervision-friendship-and-mutual-self-defense.md`: Nyx como supervisora e amiga de Nero e Rafael, missão restrita de Rafael e defesas próprias e supervisão recíproca dos três.
 - `docs/ADR-0029-rafael-protective-intervention-and-fundamental-principles.md`: autoridade proporcional de Rafael para intervir quando Nero ou Nyx ameaçar princípios fundamentais, integridade ou privacidade dos usuários.
 - `docs/ADR-0030-threat-model-and-security-implementation-roadmap.md`: modelo de ameaças, fronteiras de confiança, controles obrigatórios e plano de implementação seguro por fases.
+- `docs/ADR-0031-closed-alpha-program-and-ten-testers.md`: programa Alpha fechado com o criador como usuário principal e até dez participantes, isolamento individual e supervisão agregada da Nyx.
 
 ## Backend (ambiente privado de desenvolvimento)
 
