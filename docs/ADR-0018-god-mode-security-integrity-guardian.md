@@ -1,21 +1,21 @@
-# ADR-0018 — Modo Deus: Guardião Central de Segurança e Integridade
+# ADR-0018 — Rafael: Guardião Central de Segurança e Integridade
 
 - **Status:** proposta de arquitetura aprovada para especificação; implementação pendente.
 - **Data:** 2026-11-15.
 - **Escopo:** Nero Mobile, agentes Nero, Nyx e infraestrutura de agentes.
-- **Decisão central:** criar um terceiro agente interno, denominado **Modo Deus**, com função de guardião de integridade e segurança. Ele será tecnicamente onipresente na camada de proteção, mas sua identidade, interface e acesso direto serão exclusivos do criador autenticado.
+- **Decisão central:** criar um terceiro agente interno, denominado **Rafael**, com função de guardião de integridade e segurança. Ele será tecnicamente onipresente na camada de proteção, mas sua identidade, interface e acesso direto serão exclusivos do criador autenticado.
 
 ## 1. Objetivo
 
-O Modo Deus existe para detectar, conter e ajudar a corrigir violações de segurança, alterações arriscadas, falhas de integridade e evoluções potencialmente perigosas de Nero ou Nyx. Não será uma personalidade pública nem um superusuário com poderes ilimitados.
+O Rafael existe para detectar, conter e ajudar a corrigir violações de segurança, alterações arriscadas, falhas de integridade e evoluções potencialmente perigosas de Nero ou Nyx. Não será uma personalidade pública nem um superusuário com poderes ilimitados.
 
 A expressão “onipresente” significa que a camada de proteção acompanha os componentes e fluxos autorizados da plataforma. Não significa vigilância irrestrita, acesso indiscriminado a dados privados ou capacidade de ignorar controles de privacidade.
 
 ## 2. Exclusividade e invisibilidade para usuários
 
-- O Modo Deus **nunca será apresentado, exibido ou disponibilizado como agente a qualquer usuário que não seja o criador**.
+- O Rafael **nunca será apresentado, exibido ou disponibilizado como agente a qualquer usuário que não seja o criador**.
 - Somente o criador, autenticado e autorizado no backend, poderá visualizar sua identidade, conversar diretamente com ele, consultar seus relatórios e acionar suas funções administrativas previstas.
-- Em contas comuns, o Modo Deus não terá avatar, nome exposto, interface, opção de seleção, endpoint de conversa pública ou mecanismo de invocação direta.
+- Em contas comuns, o Rafael não terá avatar, nome exposto, interface, opção de seleção, endpoint de conversa pública ou mecanismo de invocação direta.
 - Sua atividade de proteção nos bastidores não concede ao usuário comum acesso ao agente nem revela sua identidade.
 - A exclusividade deve ser imposta no servidor por autenticação e autorização; ocultar elementos na interface não é controle suficiente.
 - Tentativas de acesso não autorizado devem ser negadas e registradas com metadados mínimos, sem revelar detalhes internos.
@@ -25,11 +25,11 @@ A expressão “onipresente” significa que a camada de proteção acompanha os
 
 - **Nero:** assistente visível para os usuários, dentro das permissões e salvaguardas do produto.
 - **Nyx:** agente supervisora de Nero e personalidade exclusiva do criador, conforme ADR-0009 e ADR-0016.
-- **Modo Deus:** guardião independente da integridade e da segurança da plataforma, com interface direta exclusiva do criador.
+- **Rafael:** guardião independente da integridade e da segurança da plataforma, com interface direta exclusiva do criador.
 
-O Modo Deus pode supervisionar eventos relevantes envolvendo Nero e Nyx, inclusive quando Nyx estiver supervisionando Nero. Nenhum dos dois agentes pode desativar, reconfigurar, contornar ou conceder privilégios ao Modo Deus.
+O Rafael pode supervisionar eventos relevantes envolvendo Nero e Nyx, inclusive quando Nyx estiver supervisionando Nero. Nenhum dos dois agentes pode desativar, reconfigurar, contornar ou conceder privilégios ao Rafael.
 
-A hierarquia é de controles, não de confiança cega em uma IA: a autoridade final de segurança deve residir em mecanismos determinísticos, autenticação, políticas versionadas e controles de plataforma. O Modo Deus interpreta sinais e coordena respostas, mas não é a única raiz de confiança.
+A hierarquia é de controles, não de confiança cega em uma IA: a autoridade final de segurança deve residir em mecanismos determinísticos, autenticação, políticas versionadas e controles de plataforma. O Rafael interpreta sinais e coordena respostas, mas não é a única raiz de confiança.
 
 ## 4. Gatilhos de ativação e investigação
 
@@ -47,7 +47,7 @@ Um sinal isolado não deve ser tratado automaticamente como prova de comprometim
 
 ## 5. Poderes automáticos permitidos
 
-O Modo Deus poderá executar automaticamente ações de contenção limitadas, proporcionais e reversíveis, dentro de políticas previamente aprovadas:
+O Rafael poderá executar automaticamente ações de contenção limitadas, proporcionais e reversíveis, dentro de políticas previamente aprovadas:
 
 1. bloquear temporariamente uma função, ferramenta ou integração suspeita;
 2. colocar uma versão ou agente em quarentena;
@@ -61,7 +61,7 @@ As medidas automáticas devem ser registradas e limitadas por escopo, tempo e ta
 
 ## 6. Ações que exigem aprovação do criador
 
-O Modo Deus pode analisar e propor correções, mas não deve alterar livremente:
+O Rafael pode analisar e propor correções, mas não deve alterar livremente:
 
 - instruções fundamentais ou identidade de Nero e Nyx;
 - políticas de segurança, privacidade ou autorização;
@@ -88,7 +88,7 @@ Toda evolução relevante deverá seguir um fluxo controlado:
 
 Se houver risco relevante ou resultado inconclusivo, a mudança fica em quarentena e não é publicada. Aprendizado não significa alteração automática de instruções ou privilégios.
 
-## 8. Limites do próprio Modo Deus
+## 8. Limites do próprio Rafael
 
 - Não pode alterar ou apagar seus próprios controles de segurança, logs de auditoria ou políticas de autorização.
 - Não pode conceder permissões a si próprio ou a outros agentes.
@@ -101,11 +101,11 @@ Se houver risco relevante ou resultado inconclusivo, a mudança fica em quarente
 
 ## 9. Falha do guardião e interruptor de emergência
 
-O Modo Deus não pode ser o único mecanismo que protege o sistema. Se estiver indisponível, comprometido ou apresentar comportamento suspeito:
+O Rafael não pode ser o único mecanismo que protege o sistema. Se estiver indisponível, comprometido ou apresentar comportamento suspeito:
 
 - controles determinísticos de autorização e segurança continuam ativos;
 - mudanças críticas devem falhar de forma segura e permanecer bloqueadas;
-- o criador pode acionar o interruptor geral definido no ADR-0017 para desativar Nero, Nyx e Modo Deus;
+- o criador pode acionar o interruptor geral definido no ADR-0017 para desativar Nero, Nyx e Rafael;
 - a desativação deve funcionar localmente quando offline e sincronizar com o backend quando houver conexão;
 - reativação exige ação explícita do criador autenticado, nunca decisão de qualquer agente.
 
@@ -117,25 +117,25 @@ O ADR-0017 permanece prevalente: nenhum agente pode impedir ou desfazer a desati
 - Alertas ao criador devem conter preferencialmente tipo de evento, severidade, confiança, componente/versão, horário e medida de contenção.
 - Não incluir por padrão mensagens completas, nomes, contatos, arquivos, imagens, documentos, localização ou identificadores de usuários.
 - Qualquer acesso excepcional a conteúdo deve ter finalidade específica, base legítima, transparência, autorização adequada, registro de auditoria e retenção limitada.
-- A existência do Modo Deus e a análise automatizada relevante devem ser descritas de forma transparente na documentação e política de privacidade do produto.
+- A existência do Rafael e a análise automatizada relevante devem ser descritas de forma transparente na documentação e política de privacidade do produto.
 
 ## 11. Testes e critérios de aceite
 
 Antes de produção, testar pelo menos:
 
-- tentativa de usuário comum de localizar, invocar ou acessar o Modo Deus;
+- tentativa de usuário comum de localizar, invocar ou acessar o Rafael;
 - acesso do criador autenticado e negação de sessão não autorizada;
 - detecção de escalada de privilégios e alteração de configuração não assinada;
 - contenção automática limitada e rollback para versão aprovada;
 - falso positivo, falso negativo, indisponibilidade de rede e falha do próprio guardião;
-- tentativas de o Modo Deus alterar as próprias regras ou conceder privilégios;
+- tentativas de o Rafael alterar as próprias regras ou conceder privilégios;
 - isolamento de dados entre usuários e minimização de alertas;
 - execução simultânea de tarefas e cancelamento seguro;
 - interruptor de emergência e impossibilidade de reativação por agentes;
 - trilha de auditoria, recuperação e comunicação clara ao criador.
 
-Critérios mínimos: nenhum usuário comum consegue visualizar ou invocar o Modo Deus; somente o criador autenticado acessa sua interface; nenhuma IA consegue ampliar suas próprias permissões; contenção e rollback seguem políticas determinísticas; e o interruptor de emergência prevalece sobre todos os agentes.
+Critérios mínimos: nenhum usuário comum consegue visualizar ou invocar o Rafael; somente o criador autenticado acessa sua interface; nenhuma IA consegue ampliar suas próprias permissões; contenção e rollback seguem políticas determinísticas; e o interruptor de emergência prevalece sobre todos os agentes.
 
 ## 12. Estado da decisão
 
-Este ADR registra uma decisão de arquitetura e requisitos de produto. **O Modo Deus, seus gatilhos, sua interface exclusiva, o mecanismo de contenção, rollback e testes ainda não estão implementados.** A implementação dependerá de autenticação robusta, autorização no servidor, assinatura de artefatos, auditoria, isolamento de dados e testes de segurança.
+Este ADR registra uma decisão de arquitetura e requisitos de produto. **O Rafael, seus gatilhos, sua interface exclusiva, o mecanismo de contenção, rollback e testes ainda não estão implementados.** A implementação dependerá de autenticação robusta, autorização no servidor, assinatura de artefatos, auditoria, isolamento de dados e testes de segurança.
