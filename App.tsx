@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
+  Linking,
   Platform,
   SafeAreaView,
   ScrollView,
@@ -60,19 +61,20 @@ export default function App() {
     setIsThinking(true);
 
     try {
-      const reply = await askNero(conversation);
+      const result = await askNero(conversation);
       setMessages((current) => [
         ...current,
         {
           id: `nero-${Date.now()}`,
           role: "assistant",
-          text: reply,
-          createdAt: new Date()
+          text: result.reply,
+          createdAt: new Date(),
+          sources: result.sources
         }
       ]);
       if (voiceRepliesEnabled) {
         Speech.stop();
-        Speech.speak(reply, {
+        Speech.speak(result.reply, {
           language: "pt-BR",
           rate: 0.95,
           pitch: 1.0,
@@ -175,6 +177,25 @@ export default function App() {
                 {message.role === "user" ? "VOCÊ" : "NERO"}
               </Text>
               <Text style={styles.messageText}>{message.text}</Text>
+              {!!message.sources?.length && (
+                <View style={styles.sourcesBox}>
+                  <Text style={styles.sourcesTitle}>FONTES CONSULTADAS</Text>
+                  {message.sources.map((source, index) => (
+                    <TouchableOpacity
+                      key={source.url}
+                      onPress={() => Linking.openURL(source.url).catch(() =>
+                        Alert.alert("Não foi possível abrir o link", "Verifique a conexão do aparelho.")
+                      )}
+                      accessibilityRole="link"
+                      accessibilityLabel={`Abrir fonte: ${source.title}`}
+                      style={styles.sourceLink}
+                    >
+                      <Text style={styles.sourceNumber}>[{index + 1}]</Text>
+                      <Text style={styles.sourceText}>{source.title}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              )}
             </View>
           ))}
           {isThinking && (
@@ -264,6 +285,11 @@ const styles = StyleSheet.create({
   userBubble: { alignSelf: "flex-end", backgroundColor: "#174FAE", borderTopRightRadius: 5 },
   messageRole: { color: "#8EAEDE", fontSize: 9, fontWeight: "800", letterSpacing: 1, marginBottom: 6 },
   messageText: { color: "#F2F6FF", fontSize: 14, lineHeight: 21 },
+  sourcesBox: { marginTop: 12, paddingTop: 10, borderTopWidth: 1, borderTopColor: "#33415C", gap: 7 },
+  sourcesTitle: { color: "#8EAEDE", fontSize: 9, fontWeight: "800", letterSpacing: 1 },
+  sourceLink: { flexDirection: "row", alignItems: "flex-start", gap: 6 },
+  sourceNumber: { color: "#75AFFF", fontSize: 11, fontWeight: "700" },
+  sourceText: { color: "#9CC5FF", fontSize: 11, lineHeight: 16, flex: 1, textDecorationLine: "underline" },
   loadingBubble: { flexDirection: "row", alignItems: "center", gap: 10 },
   loadingText: { color: "#9AA7BD", fontSize: 12 },
   composer: {
