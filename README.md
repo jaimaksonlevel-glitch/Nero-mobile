@@ -64,7 +64,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0009-nyx-central-supervisor.md`: Nyx como agente supervisora central, privacidade, alertas e experiência do criador.
 - `docs/ADR-0010-notification-assistant-integration.md`: integração de notificações e respostas, permissões Android/iOS, automação responsável e privacidade.
 - `docs/ADR-0011-visual-identity-and-avatar-customization.md`: aparência humana realista, expressões e personalização visual.
-- `docs/ADR-0012-floating-companions-overlay.md`: avatares flutuantes e interação contextual sobre outros aplicativos, respeitando Android/iOS.
+- `docs/ADR-0012-floating-companions-overlay.md`: avatares flutuantes e interação contextual sobre outros aplicativos, respeitando Android/iOS.\n- `docs/ADR-0013-avatar-expression-and-motion-system.md`: estados expressivos, personalidade visual, animações e plano de prototipagem.
 
 ## Backend (ambiente privado de desenvolvimento)
 
