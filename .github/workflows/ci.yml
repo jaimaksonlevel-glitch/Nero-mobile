@@ -17,8 +17,12 @@ jobs:
         with:
           node-version: 20
       - name: Install app dependencies
-        run: npm install
+        run: npm install --no-audit --no-fund
       - name: TypeScript check
         run: npm run typecheck
+      - name: Install backend dependencies
+        run: npm install --prefix server --no-audit --no-fund
       - name: Check backend syntax
-        run: node --check server/index.mjs
+        run: npm run check --prefix server
+      - name: Run backend tests
+        run: npm test --prefix server
