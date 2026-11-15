@@ -2,7 +2,7 @@
   "expo": {
     "name": "Nero Mobile",
     "slug": "nero-mobile",
-    "version": "0.1.0",
+    "version": "0.3.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "platforms": [
@@ -18,6 +18,15 @@
     },
     "ios": {
       "bundleIdentifier": "com.levelengenharia.neromobile"
-    }
+    },
+    "plugins": [
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Permita que o Nero use o microfone somente quando você tocar no botão de gravação.",
+          "enableBackgroundRecording": false
+        }
+      ]
+    ]
   }
 }
