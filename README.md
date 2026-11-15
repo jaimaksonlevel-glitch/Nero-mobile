@@ -128,6 +128,19 @@ Ver ADR-0008 a ADR-0027 para requisitos e critérios de aceite. Esta seção des
 - Alertas usam metadados técnicos mínimos e nunca expõem conversas, arquivos, memórias, notificações ou dados pessoais privados dos usuários.
 - **A defesa em camadas, a auditoria independente e os relatórios da Nyx ainda são especificações; não estão implementados nem auditados.**
 
+
+
+### Supervisão, amizade e autodefesa dos três — ADR-0028
+
+- Nyx supervisiona funcionalmente Nero e Rafael, mas é amiga e parceira dos dois; supervisão não significa autoridade ilimitada, propriedade ou obediência cega.
+- Rafael evolui com uma missão restrita: proteger a si próprio, Nero e Nyx e a integridade técnica necessária para essa proteção.
+- Nero, Nyx e Rafael terão defesas próprias contra manipulação, acesso indevido, adulteração de identidade/configuração, escalada de privilégios, exfiltração e comprometimento de sessões, ferramentas e atualizações.
+- Nyx pode auditar Rafael por registros independentes; Nero e Rafael também podem contestar avaliações de Nyx com evidências. Divergências materiais devem ser registradas e reavaliadas.
+- Nenhum agente pode reescrever unilateralmente a identidade, memória privada, políticas centrais, permissões, código, modelo ou chaves dos demais.
+- A falha ou indisponibilidade de um agente não deve eliminar as defesas dos outros. A raiz de confiança permanece em controles determinísticos e independentes dos agentes.
+- Amizade significa colaboração, respeito, humor e discordância honesta; não elimina auditoria, limites de privacidade ou salvaguardas.
+- **Esses requisitos são uma especificação; as defesas próprias e a supervisão recíproca ainda não foram implementadas nem validadas em produção.**
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -163,6 +176,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0025-nero-core-integrity-unauthorized-change-protection.md`: Nero Core Integrity, proteção contra alterações não autorizadas em código, políticas, identidade, modelos, permissões, chaves, cadeia de suprimentos e releases.
 - `docs/ADR-0026-rafael-guardian-identity-and-mission.md`: Rafael como nome oficial do guardião, sua missão de proteger Nero e Nyx, resposta a acessos externos e limites de privacidade e autonomia.
 - `docs/ADR-0027-defense-in-depth-and-rafael-independent-audit.md`: defesa em profundidade, raiz de confiança independente, auditoria das ações de Rafael e relatórios de incidentes da Nyx ao criador.
+- `docs/ADR-0028-nyx-supervision-friendship-and-mutual-self-defense.md`: Nyx como supervisora e amiga de Nero e Rafael, missão restrita de Rafael e defesas próprias e supervisão recíproca dos três.
 
 ## Backend (ambiente privado de desenvolvimento)
 
