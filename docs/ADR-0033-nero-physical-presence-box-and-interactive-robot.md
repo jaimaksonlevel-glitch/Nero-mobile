@@ -1,8 +1,12 @@
 # ADR-0033 — Nero Física: caixa inteligente e robô interativo
 
-- **Status:** Proposta aprovada para prototipagem por etapas; implementação pendente.
+- **Status:** Evolução futura; prioridade de desenvolvimento adiada em favor de celulares, tablets e computadores conforme ADR-0034.
 - **Data:** 2026-11-15
 - **Branch:** `feature/ai-foundation`
+
+## Prioridade atual
+
+A construção física não é a prioridade atual. O desenvolvimento deve primeiro consolidar Nero nos dispositivos existentes — celulares, tablets e computadores — conforme ADR-0034. Este ADR permanece como visão e plano de evolução futura; não deve desviar recursos da prioridade multiplataforma.
 
 ## Contexto
 
