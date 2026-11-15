@@ -66,12 +66,12 @@ export function extractReplyAndSources(outputItems) {
   const reply = content
     .filter((item) => item?.type === "output_text" && typeof item.text === "string")
     .map((item) => item.text)
-    .join("\\n")
+    .join("\n")
     .trim();
   const sources = content
     .flatMap((item) => Array.isArray(item.annotations) ? item.annotations : [])
     .filter((item) => item?.type === "url_citation" &&
-      typeof item.url === "string" && /^https?:\\/\\//i.test(item.url))
+      typeof item.url === "string" && /^https?:\/\//i.test(item.url))
     .map((item) => ({
       title: typeof item.title === "string" ? item.title.slice(0, 300) : item.url,
       url: item.url
