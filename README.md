@@ -12,11 +12,11 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 
 ## Estado do projeto
 
-A versão 0.2.0 adiciona a fundação de comunicação entre o aplicativo e um serviço backend. O aplicativo já possui um cliente HTTP para enviar o histórico recente e exibir a resposta do serviço.
+A versão 0.2.1 adiciona síntese de fala local opcional: o usuário pode ligar ou desligar as respostas faladas pelo botão VOZ. A funcionalidade usa o mecanismo de voz do aparelho e não ativa o microfone. A versão também mantém a fundação de comunicação entre o aplicativo e um serviço backend. O aplicativo já possui um cliente HTTP para enviar o histórico recente e exibir a resposta do serviço.
 
 **Ainda não significa que o Nero esteja conectado ou implantado.** Para obter respostas reais, é necessário configurar e implantar o backend e definir `EXPO_PUBLIC_NERO_API_URL` no ambiente de build do Expo.
 
-Ainda não estão implementados: reconhecimento de fala, síntese de voz, palavra de ativação contínua, execução em segundo plano, memória persistente, análise de arquivos/imagens e módulos de engenharia.
+Ainda não estão implementados: reconhecimento de fala, palavra de ativação contínua, execução em segundo plano, memória persistente, análise de arquivos/imagens e módulos de engenharia. A síntese de fala local está implementada, mas ainda precisa ser testada em aparelho Android e iOS.
 
 ## Estrutura
 
