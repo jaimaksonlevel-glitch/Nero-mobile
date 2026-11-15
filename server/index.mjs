@@ -118,7 +118,7 @@ const server = http.createServer(async (req, res) => {
       .filter((item) => item.type === "message")
       .flatMap((item) => item.content || [])
       .flatMap((item) => item.annotations || [])
-      .filter((item) => item.type === "url_citation" && typeof item.url === "string")
+      .filter((item) => item.type === "url_citation" && typeof item.url === "string" && /^https?:\/\//i.test(item.url))
       .map((item) => ({ title: item.title || item.url, url: item.url }))
       .filter((source, index, all) =>
         all.findIndex((candidate) => candidate.url === source.url) === index
