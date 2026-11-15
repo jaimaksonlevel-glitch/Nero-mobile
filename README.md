@@ -43,6 +43,15 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Android exige autorização explícita para overlay; no iOS serão usadas apenas alternativas oficialmente permitidas.
 - A presença visual não concede acesso a mensagens ou conteúdo de outros apps: permissões de notificações, microfone e respostas continuam independentes.
 
+### Governança da autonomia — ADR-0016
+
+- A autonomia de Nero e Nyx é conversacional e operacionalmente limitada: iniciativa e personalidade não significam independência dos controles do produto.
+- Ambas usam idiomas humanos suportados e comunicação interna estruturada; não criam idiomas ou códigos secretos para ocultar conversas do usuário.
+- Identidades, memórias privadas e instruções centrais permanecem separadas; aprendizados podem ser propostos, avaliados, versionados e revertidos.
+- Personalidade, modo conversacional e aparência nunca alteram permissões técnicas. Nero e Nyx seguem o mesmo modelo de autorização e os mesmos controles de confirmação, pausa e revogação.
+- **No Modo Maldade, Nyx ganha liberdade somente na conversa e na expressão visual/gestual** — tom, roupas, acessórios, expressões, postura e gestos dentro dos limites permitidos. Não ganha acesso adicional a notificações, mensagens, arquivos, microfone, câmera, localização, aplicativos, contas, ferramentas ou qualquer dado.
+- Nenhum agente pode ampliar as próprias permissões, contornar salvaguardas ou ocultar ações externas relevantes.
+
 ### Transição de descanso e Modo Maldade — ADR-0015
 
 - No aplicativo do criador autenticado, o comando **“Nero, está na hora de dormir”** transfere automaticamente a conversa direta para Nyx e coloca Nero no estado visual de descanso.
@@ -53,7 +62,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - A personalização mantém a identidade visual de Nyx, é privada do criador e não altera permissões, memória ou salvaguardas.
 - O Modo Maldade não remove salvaguardas, não altera permissões e permanece exclusivo ao criador autenticado.
 
-Ver ADR-0008 a ADR-0015 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0016 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
