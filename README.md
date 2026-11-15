@@ -62,7 +62,17 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - A personalização mantém a identidade visual de Nyx, é privada do criador e não altera permissões, memória ou salvaguardas.
 - O Modo Maldade não remove salvaguardas, não altera permissões e permanece exclusivo ao criador autenticado.
 
-Ver ADR-0008 a ADR-0016 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+### Desativação de emergência — ADR-0017
+
+- O usuário terá um interruptor geral para desativar os agentes; no app do criador, ele interrompe Nero e Nyx juntos, com opções individuais.
+- A desativação local deve funcionar mesmo sem internet e não depende da cooperação dos agentes.
+- O backend também bloqueará novas solicitações, cancelará tarefas canceláveis e invalidará sessões/credenciais aplicáveis.
+- Voz, captura de áudio, avatares/overlays, supervisão, notificações, respostas e automações serão interrompidos ou bloqueados conforme as capacidades de cada plataforma.
+- A reativação exige ação explícita do titular autenticado; nenhum agente pode reativar a si próprio ou ao outro.
+- Desativar não apaga automaticamente memórias ou configurações. O estado de emergência prevalece sobre modos, presets e automações.
+- A interface deve informar com honestidade o que foi interrompido localmente e o que ainda aguarda confirmação remota.
+
+Ver ADR-0008 a ADR-0017 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
@@ -88,6 +98,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0014-floating-companions-voice-layout-and-styles.md`: voz, layout compacto, interação conjunta e estilos visuais.
 - `docs/ADR-0015-sleep-handoff-and-nyx-modo-maldade.md`: transferência automática da conversa de Nero para Nyx e Modo Maldade exclusivo do criador.
 - `docs/ADR-0016-autonomy-governance-and-agent-independence.md`: governança da autonomia, comunicação compreensível e separação entre expressão e permissões técnicas.
+- `docs/ADR-0017-emergency-stop-and-agent-deactivation.md`: interruptor geral de emergência, desativação local e remota, revogação e reativação explícita.
 
 ## Backend (ambiente privado de desenvolvimento)
 
