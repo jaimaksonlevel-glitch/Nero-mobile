@@ -8,6 +8,19 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Ativação planejada: palavra de ativação **“Nero”** (Wake).
 - Personalidade **Hybrid**: técnico e objetivo em engenharia; natural e próximo em conversas.
 - Idioma: português do Brasil.
+- Princípio conversacional: comunicação espontânea, adaptável ao usuário e sincera, sem personalidades engessadas por contexto.
+
+## Arquitetura de agentes — proposta aprovada, implementação pendente
+
+- **Nero** é a assistente visível para todos os usuários.
+- **Nyx** é uma agente supervisora independente, exclusiva do criador na interface, que avalia qualidade, consistência, riscos e possíveis erros nas respostas da Nero.
+- Nos aplicativos dos usuários, Nyx opera somente no backend; não aparece na interface.
+- No aplicativo autenticado do criador, Nero e Nyx podem aparecer juntas, com personalidades e memórias separadas.
+- O criador poderá receber alertas minimizados sobre falhas relevantes identificadas pela supervisão. Alertas não devem expor conversas privadas, arquivos ou identificadores dos usuários por padrão.
+- O **Modo dormir** do criador suspenderá o atendimento da Nero e transferirá a conversa para Nyx; não desliga a supervisão global.
+- Nyx não substitui salvaguardas essenciais nem recebe acesso irrestrito a dados dos usuários.
+
+Ver ADR-0008 e ADR-0009 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
@@ -15,7 +28,7 @@ A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada d
 
 **O aplicativo ainda não está conectado a um backend implantado.** Para respostas reais, é necessário configurar e implantar o backend e definir `EXPO_PUBLIC_NERO_API_URL` no ambiente de build do Expo.
 
-Ainda não estão implementados: palavra de ativação, execução em segundo plano, memória persistente, análise de arquivos/imagens e módulos de engenharia. A entrada de voz envia a gravação ao backend para transcrição e depende de chave válida e serviço implantado. A pesquisa web depende de chave válida, acesso à API e implantação do backend. A síntese de fala local precisa ser testada em aparelhos Android e iOS.
+Ainda não estão implementados: palavra de ativação, execução em segundo plano, memória persistente, análise de arquivos/imagens, agentes Nero/Nyx, supervisão e notificações, modo dormir e módulos de engenharia. A entrada de voz envia a gravação ao backend para transcrição e depende de chave válida e serviço implantado. A pesquisa web depende de chave válida, acesso à API e implantação do backend. A síntese de fala local precisa ser testada em aparelhos Android e iOS.
 
 ## Estrutura
 
@@ -24,7 +37,9 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `src/services/neroApi.ts`: cliente HTTP do aplicativo.
 - `server/index.mjs`: backend Node.js que mantém a chave do provedor fora do aplicativo.
 - `native-spikes/android-pcm/`: referência isolada de captura PCM Android, ainda não integrada.
-- `docs/ADR-0001-wake-word-nero.md` a `docs/ADR-0006-openwakeword-android-evaluation.md`: decisões e avaliações técnicas da arquitetura Wake.
+- `docs/ADR-0001-wake-word-nero.md` a `docs/ADR-0007-wake-model-training-plan.md`: decisões e avaliações técnicas da arquitetura Wake.
+- `docs/ADR-0008-adaptive-conversation-and-modes.md`: comunicação adaptável, personalidade e modos.
+- `docs/ADR-0009-nyx-central-supervisor.md`: Nyx como agente supervisora central, privacidade, alertas e experiência do criador.
 
 ## Backend (ambiente privado de desenvolvimento)
 
@@ -45,6 +60,7 @@ Configure `EXPO_PUBLIC_NERO_API_URL` com a URL HTTPS do backend no ambiente de b
 - A gravação só começa após toque explícito e permissão do sistema; não há microfone em segundo plano nem wake word nesta versão.
 - O áudio gravado é enviado ao backend para transcrição; não usar gravações de clientes sem consentimento e política de retenção definida.
 - Antes de uso real com dados de clientes, implementar autenticação, retenção mínima, exclusão de dados e controles de acesso.
+- A supervisão da Nyx exige transparência para usuários, isolamento por usuário/tenant, minimização de dados, retenção limitada e auditoria. O criador não recebe acesso irrestrito a conversas privadas.
 - Respostas técnicas devem apresentar premissas e alertar quando exigirem validação profissional, normas aplicáveis e ART.
 
 ## Wake: próxima etapa técnica
@@ -63,6 +79,7 @@ A documentação do Expo recomenda criar módulos locais com `npx create-expo-mo
 4. Executar build Android com Expo SDK 54 / RN 0.81.5 e validar PCM, permissões e ciclo de vida em aparelho real.
 5. Medir CPU, bateria, latência e falsos acionamentos em ambiente silencioso e ruidoso.
 6. Implantar backend privado com autenticação, controles de abuso, observabilidade e política de privacidade.
-7. Implementar upload seguro e análise de imagens/PDFs.
-8. Construir módulos de engenharia: cálculos, dimensionamento, projetos, diagnósticos e orçamentos.
-9. Adicionar memória configurável e sincronização entre dispositivos.
+7. Implementar agentes Nero/Nyx, orquestração, supervisão, painel e alertas respeitando ADR-0009.
+8. Implementar upload seguro e análise de imagens/PDFs.
+9. Construir módulos de engenharia: cálculos, dimensionamento, projetos, diagnósticos e orçamentos.
+10. Implementar memória configurável e sincronização entre dispositivos.
