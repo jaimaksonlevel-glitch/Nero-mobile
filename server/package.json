@@ -1,0 +1,14 @@
+{
+  "name": "nero-api",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node index.mjs",
+    "test": "node --test",
+    "check": "node --check index.mjs && node --check auth.mjs && node --check core.mjs"
+  },
+  "dependencies": {
+    "jose": "6.1.0"
+  }
+}
