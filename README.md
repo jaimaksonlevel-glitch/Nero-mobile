@@ -13,9 +13,9 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 ## Arquitetura de agentes — proposta aprovada, implementação pendente
 
 - **Nero** é a assistente visível para todos os usuários.
-- **Nyx** é uma agente supervisora independente, exclusiva do criador na interface, que avalia qualidade, consistência, riscos e possíveis erros nas respostas da Nero.
+- **Nyx** é uma agente e personalidade exclusiva do criador: somente ele, autenticado no servidor, pode vê-la e conversar diretamente com ela. Nenhum outro usuário pode invocá-la ou acessá-la. A avaliação automatizada interna da Nero no backend não concede acesso à personalidade Nyx.
 - Nos aplicativos dos usuários, Nyx opera somente no backend; não aparece na interface.
-- No aplicativo autenticado do criador, Nero e Nyx podem aparecer juntas, com personalidades e memórias separadas.
+- No aplicativo autenticado do criador, Nero e Nyx podem aparecer juntas, com personalidades e memórias separadas. A Nyx não é disponibilizada como assistente aos demais usuários.
 - O criador poderá receber alertas minimizados sobre falhas relevantes identificadas pela supervisão. Alertas não devem expor conversas privadas, arquivos ou identificadores dos usuários por padrão.
 - O **Modo dormir** do criador suspenderá o atendimento da Nero e transferirá a conversa para Nyx; não desliga a supervisão global.
 - Nyx não substitui salvaguardas essenciais nem recebe acesso irrestrito a dados dos usuários.
