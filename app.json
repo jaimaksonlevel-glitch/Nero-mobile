@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Nero Mobile",
+    "slug": "nero-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "splash": {
+      "backgroundColor": "#0B1020"
+    },
+    "android": {
+      "package": "com.levelengenharia.neromobile"
+    },
+    "ios": {
+      "bundleIdentifier": "com.levelengenharia.neromobile"
+    }
+  }
+}
