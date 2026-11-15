@@ -34,7 +34,7 @@ export async function authenticateRequest(req) {
     return { ok: false, status: 401, error: "Autenticação necessária." };
   }
   const token = header.slice(7).trim();
-  if (!token || token.length > 8192 || /\\s/.test(token)) {
+  if (!token || token.length > 8192 || /\s/.test(token)) {
     return { ok: false, status: 401, error: "Token de acesso inválido." };
   }
 
