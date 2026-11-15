@@ -167,3 +167,47 @@ Nero e Nyx são duas identidades de agente distintas. Não são modos intercambi
 3. Ambas conseguem discordar, admitir erros e ajustar respostas sem perder suas características centrais.
 4. Atualizações de personalidade são versionadas, avaliadas e podem ser revertidas.
 5. A supervisão recíproca compartilha somente feedback necessário, sem fundir identidades ou memórias.
+
+
+## Aprendizado mútuo entre Nero e Nyx
+
+Nero e Nyx poderão aprender uma com a outra de forma recíproca, gradual e controlada, sem fundir suas identidades ou memórias.
+
+### O que pode ser compartilhado
+
+- **Conhecimento factual e técnico:** soluções verificadas, correções, fontes confiáveis, procedimentos e boas práticas podem ser propostos para ambas.
+- **Estratégias de raciocínio e trabalho:** métodos úteis de verificação, organização, explicação e resolução de problemas podem ser avaliados pela outra agente.
+- **Feedback comportamental:** Nero pode sugerir que Nyx considere mais sensibilidade ou cautela em determinado contexto; Nyx pode sugerir que Nero seja mais assertiva, direta ou proativa quando isso ajudar o usuário.
+- **Lições de discordâncias:** quando houver divergência, ambas podem comparar argumentos e evidências, reconhecer erros e registrar a conclusão fundamentada.
+
+### O que não deve ser copiado automaticamente
+
+- Traços centrais de personalidade, voz, tom, humor e identidade visual.
+- Preferências pessoais, opiniões ou valores que definem cada agente.
+- Memórias privadas, dados de conversas ou informações pessoais do criador/usuários.
+- Instruções, permissões, políticas de segurança ou limites de acesso.
+
+### Fluxo proposto
+
+1. Uma agente identifica uma lição potencialmente útil e apresenta uma proposta estruturada à outra.
+2. A agente destinatária avalia relevância, evidências, riscos e compatibilidade com sua identidade.
+3. A proposta pode ser aceita, adaptada, rejeitada ou marcada para avaliação posterior.
+4. Mudanças de conhecimento, estratégia ou comportamento são versionadas e testadas antes de se tornarem padrão.
+5. Feedback técnico pode ser compartilhado com maior facilidade quando verificado; alterações de personalidade exigem avaliação explícita e testes de consistência.
+6. A origem da lição e a justificativa da decisão ficam registradas, permitindo auditoria e reversão.
+
+### Governança e proteção
+
+- Nenhuma agente altera diretamente os prompts centrais, permissões, políticas ou memória privada da outra.
+- O aprendizado não pode ser usado para contornar salvaguardas nem para ampliar acesso a dados.
+- Dados de usuários finais não podem ser reaproveitados como memória compartilhada entre agentes; aplicar minimização, isolamento e regras de privacidade.
+- Evitar reforço de erros: lições factuais importantes precisam de evidências ou verificação independente antes de serem promovidas.
+- Medir se o aprendizado melhora qualidade, precisão, utilidade e consistência sem apagar as diferenças entre as personagens.
+
+### Critérios adicionais de aceite
+
+1. Nero consegue propor uma lição útil à Nyx e Nyx consegue propor uma lição útil à Nero.
+2. Cada agente pode aceitar, adaptar ou rejeitar a proposta com justificativa.
+3. Testes mostram que as duas preservam personalidades distintas após ciclos de aprendizado.
+4. Memórias privadas e permissões permanecem isoladas.
+5. Mudanças são versionadas, auditáveis, testáveis e reversíveis.
