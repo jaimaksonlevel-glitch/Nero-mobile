@@ -19,7 +19,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - O criador poderá receber alertas minimizados sobre falhas relevantes identificadas pela supervisão. Alertas não devem expor conversas privadas, arquivos ou identificadores dos usuários por padrão.
 - O **Modo dormir** do criador suspenderá o atendimento da Nero e transferirá a conversa para Nyx; não desliga a supervisão global.
 - Nyx não substitui salvaguardas essenciais nem recebe acesso irrestrito a dados dos usuários.
-- Nero e Nyx compartilharão uma Central de Assistência e Comunicação para notificações autorizadas, análise contextual e respostas em nome do usuário, com permissões granulares e controle de envio.
+- Nero e Nyx compartilharão uma Central de Assistência e Comunicação para notificações autorizadas, análise contextual e respostas em nome do usuário. **As duas terão exatamente as mesmas capacidades e o mesmo escopo de permissões**; a personalidade não altera privilégios. Memórias e identidades permanecem separadas, e ambas obedecem às mesmas regras de confirmação, automação, pausa e revogação.
 - No Android, a proposta avalia NotificationListenerService e respostas somente por ações expostas pelo aplicativo ou integrações oficiais. No iOS, a experiência será limitada às APIs e extensões oficialmente disponíveis; não há promessa de leitura/resposta universal.
 - Envio automático ficará desativado por padrão e só poderá ocorrer mediante regra explícita, específica e revogável do usuário.
 
