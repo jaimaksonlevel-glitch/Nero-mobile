@@ -1,4 +1,5 @@
 import type { ChatMessage, NeroReply } from "../types/chat";
+import { supabase } from "./supabase";
 
 const API_URL = process.env.EXPO_PUBLIC_NERO_API_URL?.replace(/\/$/, "");
 
@@ -7,6 +8,14 @@ export class NeroApiError extends Error {
     super(message);
     this.name = "NeroApiError";
   }
+}
+
+async function getAuthorizationHeader(): Promise<Record<string, string>> {
+  const { data, error } = await supabase.auth.getSession();
+  if (error || !data.session?.access_token) {
+    throw new NeroApiError("Sua sessão expirou. Entre novamente para continuar.");
+  }
+  return { Authorization: `Bearer ${data.session.access_token}` };
 }
 
 export async function askNero(messages: ChatMessage[]): Promise<NeroReply> {
@@ -21,11 +30,12 @@ export async function askNero(messages: ChatMessage[]): Promise<NeroReply> {
     content: message.text
   }));
 
+  const authorization = await getAuthorizationHeader();
   let response: Response;
   try {
     response = await fetch(`${API_URL}/chat`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", ...authorization },
       body: JSON.stringify({ messages: conversation })
     });
   } catch {
@@ -66,10 +76,12 @@ export async function transcribeAudio(uri: string): Promise<string> {
     type: "audio/mp4"
   } as unknown as Blob);
 
+  const authorization = await getAuthorizationHeader();
   let response: Response;
   try {
     response = await fetch(`${API_URL}/transcribe`, {
       method: "POST",
+      headers: authorization,
       body: form
     });
   } catch {
