@@ -33,16 +33,16 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - A personalização não altera personalidade, voz, memória, capacidades ou permissões. A identidade visual e a interface da Nyx continuam exclusivas do criador.
 - A autonomia visual da Nyx é uma decisão de produto/experiência, não uma afirmação de consciência independente.
 
-### Companheiras Flutuantes — ADR-0012
+### Companheiras Flutuantes — ADR-0012 a ADR-0014
 
-- Proposta para Nero e, exclusivamente no ambiente do criador autenticado, Nyx aparecerem como avatares interativos enquanto outros aplicativos estão em uso.
-- Os avatares manterão a direção humana realista da ADR-0011, com expressões contextuais, animações discretas e asinhas como detalhe complementar.
-- No Android, estudar overlay nativo com autorização explícita, controles de mover/minimizar/ocultar/fechar e respeito a telas sensíveis e restrições do sistema.
-- No iOS, oferecer alternativas dentro das APIs permitidas; não prometer sobreposição arbitrária sobre todos os aplicativos.
-- A presença visual não concede acesso a mensagens ou conteúdo de outros apps: permissões de notificações e respostas continuam independentes (ADR-0010).
-- O usuário controla ativação, aplicativos permitidos, horários, áudio, frequência e pausa. Nyx permanece exclusiva do criador.
+- Nero estará disponível como avatar flutuante para usuários; Nero e Nyx poderão aparecer juntas somente no ambiente do criador autenticado.
+- A dupla poderá interagir por voz e expressões, com turnos de fala, reações visuais, modo silencioso, legendas opcionais e controle de áudio.
+- O layout prioriza avatares compactos, recolhíveis, arrastáveis e redimensionáveis, com expansão temporária sob comando do usuário.
+- O estilo visual acompanha a personalização do perfil, incluindo a opção de renderização anime, sem alterar a identidade ou as permissões das personagens.
+- Android exige autorização explícita para overlay; no iOS serão usadas apenas alternativas oficialmente permitidas.
+- A presença visual não concede acesso a mensagens ou conteúdo de outros apps: permissões de notificações, microfone e respostas continuam independentes.
 
-Ver ADR-0008, ADR-0009, ADR-0010, ADR-0011 e ADR-0012 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0014 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
