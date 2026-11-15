@@ -151,6 +151,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0023-charter-of-trust-privacy-and-protection.md`: carta fundamental de confiança, sinceridade, evolução, atitude, privacidade e proteção; detecção contextual de riscos e resposta proporcional, sem vigilância ou acusações precipitadas.
 - `docs/ADR-0024-nero-shield-intelligent-digital-protection.md`: Nero Shield, arquitetura de proteção digital contra phishing, golpes, links e arquivos maliciosos, QR codes fraudulentos e riscos de contas/dispositivos, com privacidade e limites Android/iOS.
 - `docs/ADR-0025-nero-core-integrity-unauthorized-change-protection.md`: Nero Core Integrity, proteção contra alterações não autorizadas em código, políticas, identidade, modelos, permissões, chaves, cadeia de suprimentos e releases.
+- `docs/ADR-0026-rafael-guardian-identity-and-mission.md`: Rafael como nome oficial do guardião, sua missão de proteger Nero e Nyx, resposta a acessos externos e limites de privacidade e autonomia.
 
 ## Backend (ambiente privado de desenvolvimento)
 
