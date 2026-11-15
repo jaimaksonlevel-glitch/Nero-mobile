@@ -229,7 +229,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0033-nero-physical-presence-box-and-interactive-robot.md`: Nero Física — protótipo em duas etapas (Nero Box e Nero Robot), arquitetura de voz, conectividade, expressões, movimento, privacidade e plano de validação.
 - `docs/ADR-0034-multiplatform-evolution-and-progressive-device-capabilities.md`: prioridade para celulares, tablets e computadores; identidade coerente, capacidades adaptadas a cada dispositivo e evolução física futura, sem permissões silenciosas.
 - `docs/ADR-0035-competitive-landscape-and-product-differentiation.md`: análise comparativa de Gemini Agent, Rabbit OS3, OpenAI dots e OpenClaw; diferenciação proposta, decisões de arquitetura, prioridades, riscos e critérios de validação.
-- `docs/ADR-0036-nero-continuum-peripheral-ecosystem.md`: continuidade de identidade e contexto entre dispositivos e periféricos, incluindo smartwatch e óculos inteligentes; passaporte de contexto, handoff, permissões, privacidade e roteiro incremental.
+- `docs/ADR-0036-nero-continuum-peripheral-ecosystem.md`: Nero Continuum como assistente universal para qualquer pessoa e profissão, com continuidade de identidade e contexto entre dispositivos e periféricos (incluindo smartwatch e óculos inteligentes), passaporte de contexto, handoff, permissões e privacidade.
 
 ## Backend (ambiente privado de desenvolvimento)
 
