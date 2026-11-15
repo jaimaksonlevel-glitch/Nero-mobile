@@ -46,7 +46,7 @@ function send(res, status, payload, requestId) {
 async function readBody(req, maxBytes) {
   const declaredLength = req.headers["content-length"];
   if (declaredLength !== undefined &&
-      (!/^\\d+$/.test(declaredLength) || Number(declaredLength) > maxBytes)) {
+      (!/^\d+$/.test(declaredLength) || Number(declaredLength) > maxBytes)) {
     throw new RequestError("Corpo da requisição excede o limite permitido.", 413);
   }
   const chunks = [];
