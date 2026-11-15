@@ -51,7 +51,7 @@ Configure `EXPO_PUBLIC_NERO_API_URL` com a URL HTTPS do backend no ambiente de b
 
 A palavra de ativação **ainda não está implementada**. O PCM Kotlin é somente uma referência, não foi compilado e não está ligado ao app. O ADR-0005 define o contrato proposto para um módulo Expo local: captura e inferência devem permanecer no lado nativo; o fluxo PCM bruto não deve ser transmitido continuamente para JavaScript nem para a nuvem.
 
-O ADR-0006 avalia um port Kotlin de openWakeWord para Android. O runtime é candidato de prototipagem, não dependência aprovada. Ele aceita modelos ONNX customizados, mas os modelos comunitários em português encontrados não são a palavra “Nero” e têm licença padrão não comercial. Precisamos de modelo próprio/licenciado, validação do formato e testes de ciclo de vida, desempenho e falsos acionamentos antes da integração.
+O ADR-0006 avalia um port Kotlin de openWakeWord para Android; o ADR-0007 define o plano para treinar e validar um modelo próprio “Nero” em português brasileiro. O runtime continua candidato, não dependência aprovada. O pipeline upstream pode exportar ONNX, mas compatibilidade de tensores e pré-processamento deve ser testada. Licenças de código, vozes TTS e dados precisam ser verificadas individualmente. Nenhum modelo foi treinado ou integrado.
 
 A documentação do Expo recomenda criar módulos locais com `npx create-expo-module@latest --local`. O projeto ainda não executou esse gerador nem criou o módulo nativo.
 
