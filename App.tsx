@@ -276,6 +276,7 @@ export default function App() {
             <Text style={styles.sendGlyph}>➤</Text>
           </TouchableOpacity>
         </View>
+        <Text style={styles.audioPrivacy}>Ao gravar, o áudio é enviado para transcrição. Revise o texto antes de enviar.</Text>
         <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.3.0 · {neroPersona.language.toUpperCase()}</Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -358,5 +359,6 @@ const styles = StyleSheet.create({
   },
   disabledButton: { opacity: 0.45 },
   sendGlyph: { color: "#FFFFFF", fontSize: 19, fontWeight: "700" },
-  footer: { color: "#596781", textAlign: "center", fontSize: 8, letterSpacing: 1.4, paddingVertical: 12 }
+  audioPrivacy: { color: "#7786A0", textAlign: "center", fontSize: 9, lineHeight: 13, paddingTop: 8 },
+  footer: { color: "#596781", textAlign: "center", fontSize: 8, letterSpacing: 1.4, paddingVertical: 10 }
 });
