@@ -218,6 +218,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0032-assistant-not-warden-user-autonomy-and-proportional-protection.md`: princípio de assistente, não carcereiro; proteção sem vigilância, orientação sem imposição e autonomia com resposta proporcional a riscos.
 - `docs/ADR-0033-nero-physical-presence-box-and-interactive-robot.md`: Nero Física — protótipo em duas etapas (Nero Box e Nero Robot), arquitetura de voz, conectividade, expressões, movimento, privacidade e plano de validação.
 - `docs/ADR-0034-multiplatform-evolution-and-progressive-device-capabilities.md`: prioridade para celulares, tablets e computadores; identidade coerente, capacidades adaptadas a cada dispositivo e evolução física futura, sem permissões silenciosas.
+- `docs/ADR-0035-competitive-landscape-and-product-differentiation.md`: análise comparativa de Gemini Agent, Rabbit OS3, OpenAI dots e OpenClaw; diferenciação proposta, decisões de arquitetura, prioridades, riscos e critérios de validação.
 
 ## Backend (ambiente privado de desenvolvimento)
 
