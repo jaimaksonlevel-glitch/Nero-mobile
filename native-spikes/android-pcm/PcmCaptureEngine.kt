@@ -167,14 +167,16 @@ internal class PcmCaptureEngine(
       }
     }
 
-    if (thread != null && thread !== Thread.currentThread()) {
-      thread.join(2_000)
-      check(!thread.isAlive) {
-        "PCM capture thread did not stop within 2 seconds."
+    try {
+      if (thread != null && thread !== Thread.currentThread()) {
+        thread.join(2_000)
+        check(!thread.isAlive) {
+          "PCM capture thread did not stop within 2 seconds."
+        }
       }
+    } finally {
+      record?.release()
     }
-
-    record?.release()
   }
 
   fun isRunning(): Boolean = running
