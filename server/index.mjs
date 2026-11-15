@@ -48,6 +48,75 @@ const server = http.createServer(async (req, res) => {
     return send(res, 200, { status: "ok", service: "nero-api" });
   }
 
+  if (req.method === "POST" && req.url === "/transcribe") {
+    if (!allowedByRateLimit(req.socket.remoteAddress || "unknown")) {
+      return send(res, 429, { error: "Limite temporário atingido. Aguarde um minuto." });
+    }
+    if (!API_KEY) {
+      return send(res, 503, { error: "O serviço ainda não foi configurado." });
+    }
+
+    try {
+      const MAX_AUDIO_BODY_BYTES = 20_000_000;
+      const declaredLength = Number(req.headers["content-length"] || 0);
+      if (declaredLength > MAX_AUDIO_BODY_BYTES) {
+        return send(res, 413, { error: "Áudio muito grande. O limite é 20 MB." });
+      }
+
+      const chunks = [];
+      let totalBytes = 0;
+      for await (const chunk of req) {
+        totalBytes += chunk.length;
+        if (totalBytes > MAX_AUDIO_BODY_BYTES) {
+          return send(res, 413, { error: "Áudio muito grande. O limite é 20 MB." });
+        }
+        chunks.push(chunk);
+      }
+
+      const headers = new Headers();
+      for (const [name, value] of Object.entries(req.headers)) {
+        if (typeof value === "string") headers.set(name, value);
+      }
+      const incoming = new Request("http://nero.local/transcribe", {
+        method: "POST",
+        headers,
+        body: Buffer.concat(chunks)
+      });
+      const form = await incoming.formData();
+      const audio = form.get("audio");
+      if (!audio || typeof audio === "string" || typeof audio.arrayBuffer !== "function") {
+        return send(res, 400, { error: "Nenhum arquivo de áudio foi enviado." });
+      }
+      if (audio.size === 0 || audio.size > MAX_AUDIO_BODY_BYTES) {
+        return send(res, 413, { error: "Arquivo de áudio vazio ou acima do limite de 20 MB." });
+      }
+
+      const upstreamForm = new FormData();
+      const filename = typeof audio.name === "string" ? audio.name : "nero-audio.m4a";
+      upstreamForm.append("file", audio, filename);
+      upstreamForm.append("model", "gpt-transcribe");
+
+      const upstream = await fetch("https://api.openai.com/v1/audio/transcriptions", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${API_KEY}` },
+        body: upstreamForm,
+        signal: AbortSignal.timeout(90_000)
+      });
+      const result = await upstream.json().catch(() => ({}));
+      if (!upstream.ok) {
+        console.error("OpenAI transcription returned status", upstream.status);
+        return send(res, 502, { error: "Não foi possível transcrever o áudio agora." });
+      }
+      if (typeof result.text !== "string" || !result.text.trim()) {
+        return send(res, 502, { error: "A transcrição não retornou texto." });
+      }
+      return send(res, 200, { text: result.text.trim() });
+    } catch (error) {
+      console.error("Audio transcription request failed:", error);
+      return send(res, 400, { error: "Não foi possível processar o áudio enviado." });
+    }
+  }
+
   if (req.method !== "POST" || req.url !== "/chat") {
     return send(res, 404, { error: "Rota não encontrada." });
   }
