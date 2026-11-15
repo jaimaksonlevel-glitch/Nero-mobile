@@ -153,6 +153,17 @@ Ver ADR-0008 a ADR-0027 para requisitos e critérios de aceite. Esta seção des
 - Nyx pode auditar e questionar a intervenção; Nero e Nyx podem contestar classificações com evidências. A trilha independente deve preservar metadados técnicos mínimos, sem revelar conteúdo privado.
 - **A autoridade e os mecanismos de intervenção são especificações; ainda não foram implementados nem validados em produção.**
 
+
+
+### Modelo de ameaças e roteiro de implementação — ADR-0030
+
+- Define os ativos, fronteiras de confiança e ameaças prioritárias para Nero, Nyx, Rafael e os dados dos usuários.
+- Exige autorização server-side antes de cada chamada de ferramenta, consulta de memória, integração e operação externa; nega por padrão quando escopo ou permissão estiverem ausentes.
+- Exige verificação de finalidade, classificação, destino e autorização antes de qualquer saída de dados, sem enviar conteúdo privado para telemetria ou criador por padrão.
+- Define níveis de resposta proporcionais e uma arquitetura em fases: base segura do backend, gateway de ferramentas/dados, identidade e isolamento dos agentes, intervenção/auditoria, memória privada, integrações móveis e validação independente.
+- Recomenda começar pela Fase 0: autenticação, isolamento por usuário/tenant, autorização server-side, gestão de segredos, limites de abuso e observabilidade.
+- **É um modelo de ameaças e roteiro; os controles ainda não estão implementados nem validados.**
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -190,6 +201,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0027-defense-in-depth-and-rafael-independent-audit.md`: defesa em profundidade, raiz de confiança independente, auditoria das ações de Rafael e relatórios de incidentes da Nyx ao criador.
 - `docs/ADR-0028-nyx-supervision-friendship-and-mutual-self-defense.md`: Nyx como supervisora e amiga de Nero e Rafael, missão restrita de Rafael e defesas próprias e supervisão recíproca dos três.
 - `docs/ADR-0029-rafael-protective-intervention-and-fundamental-principles.md`: autoridade proporcional de Rafael para intervir quando Nero ou Nyx ameaçar princípios fundamentais, integridade ou privacidade dos usuários.
+- `docs/ADR-0030-threat-model-and-security-implementation-roadmap.md`: modelo de ameaças, fronteiras de confiança, controles obrigatórios e plano de implementação seguro por fases.
 
 ## Backend (ambiente privado de desenvolvimento)
 
