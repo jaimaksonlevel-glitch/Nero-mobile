@@ -125,3 +125,22 @@ A supervisão não autoriza vigilância irrestrita nem divulgação de conversas
 ## Estado de implementação
 
 Este ADR registra a decisão de produto e arquitetura. Não significa que a supervisão, revisão recíproca, notificações, painel, isolamento ou modo dormir já estejam implementados. Cada componente deverá ser desenvolvido, testado e revisado antes de ser anunciado como disponível.
+
+
+## Exclusividade da Nyx — acesso reservado ao criador
+
+A Nyx é uma personalidade exclusiva do criador do Nero Mobile. **Somente o criador, autenticado e autorizado no servidor, poderá vê-la, conversar diretamente com ela ou solicitar sua atuação como assistente pessoal.** Nenhum outro usuário poderá abrir, invocar, selecionar, conversar com ou obter acesso à personalidade Nyx.
+
+- Nos aplicativos de todos os demais usuários, a única personalidade apresentada e acessível é Nero.
+- A função de supervisão automatizada da qualidade da Nero pode operar internamente no backend, conforme esta ADR, mas isso não concede aos usuários acesso à Nyx como assistente, identidade, conversa ou interface.
+- A supervisão interna deve ser tratada como serviço restrito de avaliação, com contexto mínimo e sem expor a identidade/interface da Nyx aos usuários finais.
+- O acesso direto à Nyx exige autorização verificada no backend em todas as operações relevantes. Ocultar botões ou telas no aplicativo não é controle de acesso suficiente.
+- Tentativas de invocação por contas não autorizadas devem ser negadas pelo servidor e registradas com metadados mínimos de segurança.
+- A exclusividade da Nyx não altera a paridade de capacidades técnicas e permissões da Central de Assistência e Comunicação: Nero e Nyx continuam sujeitas ao mesmo escopo autorizado pelo próprio usuário para acessar notificações e responder mensagens. A exclusividade diz respeito a quem pode acessar a personalidade Nyx, não a privilégios superiores sobre os dados de terceiros.
+
+### Critérios adicionais de aceite
+
+1. Uma conta comum não consegue acessar a interface, endpoints, memória, prompts ou sessões diretas da Nyx, mesmo modificando o cliente.
+2. Apenas a conta do criador autenticada no backend consegue iniciar uma conversa direta com Nyx.
+3. Usuários comuns interagem exclusivamente com Nero; não recebem mensagens, respostas ou identidade de Nyx.
+4. A supervisão interna não expõe a personalidade Nyx nem o conteúdo privado das conversas ao criador fora dos controles de privacidade já definidos.
