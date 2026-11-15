@@ -37,7 +37,7 @@ A documentação do projeto descreve captura em tempo real, PCM16 em ArrayBuffer
 - ArrayBuffer evita a codificação Base64 para o transporte de áudio.
 
 **Riscos**
-- A compatibilidade específica com Expo SDK 54 / RN 0.81.5 ainda não foi comprovada por build.
+- A compatibilidade específica com Expo SDK 54 / RN 0.81.5 ainda não foi comprovada por build. No package.json consultado da biblioteca (v1.5.0), o ambiente de desenvolvimento usa React Native 0.83.6 e Nitro 0.36.1, enquanto o Nero usa RN 0.81.5; isso é um alerta de compatibilidade a investigar, não prova automática de incompatibilidade.
 - É necessário auditar o código Android para confirmar formato real, política de buffers, ciclo de vida, permissões, concorrência e comportamento em interrupções.
 - Adiciona Nitro Modules e dependência nativa de terceiro.
 - O uso de PCM no JavaScript pode criar cópias e pressão de memória; medir latência e CPU.
@@ -75,7 +75,7 @@ O LiveKit Wakeword apresenta treinamento de frases customizadas e exportação O
 
 - Android AudioRecord API: https://developer.android.com/reference/android/media/AudioRecord
 - Android AudioRecord.Builder: https://developer.android.com/reference/android/media/AudioRecord.Builder
-- Biblioteca Nitro Realtime Audio: https://github.com/Mindinventory/react-native-nitro-realtime-audio
+- Biblioteca Nitro Realtime Audio (README e package.json v1.5.0): https://github.com/Mindinventory/react-native-nitro-realtime-audio
 - LiveKit Wakeword: https://docs.livekit.io/agents/multimodality/audio/wakeword/
 - Expo — código nativo e development builds: https://docs.expo.dev/workflow/customizing/
 
