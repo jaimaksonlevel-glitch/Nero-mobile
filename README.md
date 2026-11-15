@@ -74,6 +74,15 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 
 Ver ADR-0008 a ADR-0017 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
+### Guardião central de segurança — ADR-0018
+
+- O **Modo Deus** é o terceiro agente: tecnicamente onipresente na camada de proteção, mas invisível e inacessível a todos os usuários, exceto o criador autenticado.
+- Atua nos bastidores para detectar violações, escaladas de permissão, falhas de integridade e evoluções arriscadas de Nero ou Nyx.
+- Pode conter riscos com ações limitadas e reversíveis, como congelar mudanças, isolar funções, cancelar tarefas e restaurar configurações previamente aprovadas e assinadas.
+- Mudanças persistentes em identidades, políticas, permissões ou no próprio guardião exigem revisão e aprovação explícita; nenhum agente pode ampliar os próprios privilégios.
+- A proteção não depende apenas de uma IA: controles determinísticos, autenticação, integridade de artefatos e o interruptor de emergência do ADR-0017 permanecem independentes.
+- A onipresença técnica não significa acesso irrestrito a conversas ou dados privados. Relatórios ao criador usam dados minimizados e respeitam o isolamento dos usuários.
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -99,6 +108,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0015-sleep-handoff-and-nyx-modo-maldade.md`: transferência automática da conversa de Nero para Nyx e Modo Maldade exclusivo do criador.
 - `docs/ADR-0016-autonomy-governance-and-agent-independence.md`: governança da autonomia, comunicação compreensível e separação entre expressão e permissões técnicas.
 - `docs/ADR-0017-emergency-stop-and-agent-deactivation.md`: interruptor geral de emergência, desativação local e remota, revogação e reativação explícita.
+- `docs/ADR-0018-god-mode-security-integrity-guardian.md`: Modo Deus como guardião central, exclusivo do criador, contenção de riscos e governança de mudanças.
 
 ## Backend (ambiente privado de desenvolvimento)
 
