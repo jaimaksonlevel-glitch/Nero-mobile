@@ -51,3 +51,43 @@ export async function askNero(messages: ChatMessage[]): Promise<NeroReply> {
     sources: Array.isArray(data.sources) ? data.sources : []
   };
 }
+
+export async function transcribeAudio(uri: string): Promise<string> {
+  if (!API_URL) {
+    throw new NeroApiError(
+      "A conexão com o serviço de transcrição ainda não foi configurada."
+    );
+  }
+
+  const form = new FormData();
+  form.append("audio", {
+    uri,
+    name: "nero-audio.m4a",
+    type: "audio/mp4"
+  } as unknown as Blob);
+
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}/transcribe`, {
+      method: "POST",
+      body: form
+    });
+  } catch {
+    throw new NeroApiError(
+      "Não consegui enviar o áudio. Verifique sua conexão e tente novamente."
+    );
+  }
+
+  const data = (await response.json().catch(() => ({}))) as {
+    text?: string;
+    error?: string;
+  };
+
+  if (!response.ok || !data.text?.trim()) {
+    throw new NeroApiError(
+      data.error || "O serviço não conseguiu transcrever o áudio."
+    );
+  }
+
+  return data.text.trim();
+}
