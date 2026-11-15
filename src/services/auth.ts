@@ -29,6 +29,8 @@ export function useNeroAuth() {
       }
     });
 
+    if (AppState.currentState === "active") supabase.auth.startAutoRefresh();
+
     const onAppStateChange = (state: AppStateStatus) => {
       if (state === "active") supabase.auth.startAutoRefresh();
       else supabase.auth.stopAutoRefresh();
