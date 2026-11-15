@@ -23,7 +23,15 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - No Android, a proposta avalia NotificationListenerService e respostas somente por ações expostas pelo aplicativo ou integrações oficiais. No iOS, a experiência será limitada às APIs e extensões oficialmente disponíveis; não há promessa de leitura/resposta universal.
 - Envio automático ficará desativado por padrão e só poderá ocorrer mediante regra explícita, específica e revogável do usuário.
 
-Ver ADR-0008, ADR-0009 e ADR-0010 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+### Aparência visual — ADR-0011
+
+- Cada usuário poderá escolher, pré-visualizar, salvar e alterar a aparência da Nero, incluindo estilos artísticos e atributos visuais disponíveis.
+- A personalização da Nero é individual por usuário e não altera personalidade, voz, memória, capacidades ou permissões.
+- Nyx escolhe sua própria aparência. O criador autenticado poderá pedir ajustes diretamente a ela, mas não precisará configurar cada detalhe.
+- A identidade visual e a interface da Nyx continuam exclusivas do criador; nenhum outro usuário poderá visualizá-la.
+- A autonomia visual da Nyx é uma decisão de produto/experiência, não uma afirmação de consciência independente.
+
+Ver ADR-0008, ADR-0009, ADR-0010 e ADR-0011 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
@@ -43,7 +51,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0001-wake-word-nero.md` a `docs/ADR-0007-wake-model-training-plan.md`: decisões e avaliações técnicas da arquitetura Wake.
 - `docs/ADR-0008-adaptive-conversation-and-modes.md`: comunicação adaptável, personalidade e modos.
 - `docs/ADR-0009-nyx-central-supervisor.md`: Nyx como agente supervisora central, privacidade, alertas e experiência do criador.
-- `docs/ADR-0010-notification-assistant-integration.md`: integração de notificações e respostas, permissões Android/iOS, automação responsável e privacidade.
+- `docs/ADR-0010-notification-assistant-integration.md`: integração de notificações e respostas, permissões Android/iOS, automação responsável e privacidade.\n- `docs/ADR-0011-visual-identity-and-avatar-customization.md`: personalização da aparência da Nero e autonomia visual da Nyx.
 
 ## Backend (ambiente privado de desenvolvimento)
 
