@@ -86,7 +86,7 @@ const server = http.createServer(async (req, res) => {
         instructions,
         input: messages.map((message) => ({
           role: message.role,
-          content: [{ type: "input_text", text: message.content }]
+          content: message.content
         })),
         max_output_tokens: 900
       }),
