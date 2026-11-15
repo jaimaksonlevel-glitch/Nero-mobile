@@ -90,3 +90,23 @@ A capacidade deve ser transparente, granular, revogável e limitada pelas APIs e
 ## Estado de implementação
 
 Esta ADR documenta a direção arquitetural. Não significa que o listener Android, integrações de mensageiros, automação de respostas, nem suporte equivalente no iOS já estejam implementados ou testados.
+
+
+## Decisão complementar — paridade de capacidades entre Nero e Nyx
+
+**Nero e Nyx terão o mesmo conjunto de capacidades e o mesmo modelo de autorização perante os recursos do dispositivo e serviços conectados.** A personalidade do agente não altera permissões, privilégios técnicos nem o alcance dos dados autorizados.
+
+- Uma permissão concedida para a Central de Assistência e Comunicação habilita o recurso para ambos os agentes, dentro do mesmo escopo escolhido pelo usuário.
+- O usuário não precisa conceder privilégios superiores à Nyx nem inferiores à Nero; ambas respeitam a mesma seleção de aplicativos, capacidades, regras de automação e controles de pausa/revogação.
+- Ambas podem analisar notificações permitidas, elaborar respostas e executar ações compatíveis com as APIs disponíveis, sujeitas às mesmas regras de confirmação ou automação explícita.
+- O usuário pode escolher qual agente conduz uma interação, mas essa escolha não amplia nem reduz os dados ou ações permitidos.
+- Identidade, memória, estilo, contexto de conversa e histórico interno de cada agente continuam separados. Paridade de acesso não significa fusão de personalidades ou compartilhamento irrestrito de memória.
+- A disponibilidade efetiva continua condicionada ao sistema operacional, ao aplicativo de origem, às APIs oficiais e às permissões atuais. Nenhum dos agentes pode contornar essas limitações.
+- A autenticação de criador e as regras de visibilidade da Nyx continuam independentes: ter as mesmas capacidades técnicas não torna Nyx visível a outros usuários nem concede ao criador acesso às conversas privadas deles.
+
+### Critérios adicionais de aceite
+
+- Testes demonstram que Nero e Nyx recebem exatamente o mesmo escopo de permissões para um mesmo usuário.
+- Revogar ou pausar uma permissão afeta os dois agentes imediatamente.
+- Não existe caminho privilegiado oculto para qualquer agente.
+- A troca de agente não altera a autorização, o escopo de automação ou as regras de confirmação.
