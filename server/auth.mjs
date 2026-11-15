@@ -46,7 +46,7 @@ export async function authenticateRequest(req) {
     const { payload } = await jwtVerify(token, cachedJwks, {
       issuer: config.issuer,
       audience: config.audience,
-      algorithms: ["RS256", "ES256", "EdDSA"]
+      algorithms: ["RS256", "ES256"]
     });
     if (typeof payload.sub !== "string" || payload.sub.length < 1 || payload.sub.length > 255) {
       return { ok: false, status: 401, error: "Identidade da conta inválida." };
