@@ -231,6 +231,21 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0035-competitive-landscape-and-product-differentiation.md`: análise comparativa de Gemini Agent, Rabbit OS3, OpenAI dots e OpenClaw; diferenciação proposta, decisões de arquitetura, prioridades, riscos e critérios de validação.
 - `docs/ADR-0036-nero-continuum-peripheral-ecosystem.md`: Nero Continuum como assistente universal para qualquer pessoa e profissão, com continuidade de identidade e contexto entre dispositivos e periféricos (incluindo smartwatch e óculos inteligentes), passaporte de contexto, handoff, permissões e privacidade.
 
+## Autenticação Supabase (fundação em desenvolvimento)
+
+O aplicativo agora possui uma tela inicial de cadastro/entrada e uma sessão individual por conta. No Android/iOS, a sessão é armazenada pelo SecureStore do sistema operacional; no navegador, a sessão permanece apenas em memória. As chamadas `/chat` e `/transcribe` enviam o access token individual no cabeçalho Bearer.
+
+Para conectar um projeto Supabase:
+1. Crie um projeto no painel Supabase e habilite autenticação por e-mail/senha.
+2. Em **Project Settings → API**, copie a Project URL e a Publishable key (nunca use a Secret key ou service_role no aplicativo).
+3. Defina `EXPO_PUBLIC_SUPABASE_URL` e `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` no ambiente de build do Expo; `EXPO_PUBLIC_NERO_API_URL` recebe a URL HTTPS do backend.
+4. Em **Authentication → Signing Keys**, configure uma chave assimétrica ES256 ou RS256. O backend rejeita o segredo JWT legado/HS256.
+5. No ambiente privado do backend, defina `AUTH_ISSUER=https://<project-ref>.supabase.co/auth/v1`, `AUTH_AUDIENCE=authenticated` e `AUTH_JWKS_URL=https://<project-ref>.supabase.co/auth/v1/.well-known/jwks.json`. Defina `CREATOR_SUBJECT` somente após confirmar o UUID imutável da conta do criador.
+
+A URL do projeto e a Publishable key são valores públicos de identificação; chaves Secret/service_role, senha do banco e `OPENAI_API_KEY` nunca devem ir para o app, APK, Git ou mensagens. Não compartilhe credenciais aqui.
+
+**Limites atuais:** o projeto Supabase ainda não foi criado/vinculado, variáveis reais ainda não foram configuradas, o backend não está implantado e o fluxo ainda não foi testado em aparelho. O Alpha não deve ser aberto até validar isolamento por usuário, expiração/revogação de sessão, convites e controles de privacidade.
+
 ## Backend (ambiente privado de desenvolvimento)
 
 Requisitos: Node.js 20 ou superior.
