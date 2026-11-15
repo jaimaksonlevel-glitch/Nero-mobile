@@ -48,6 +48,8 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Nyx assume com o **Modo Maldade 🔞**: personalidade mais ousada, provocante, irônica e flertante, adequada a conversas adultas consensuais.
 - O comando **“Nero, pode acordar”** devolve a condução da conversa para Nero.
 - O descanso suspende apenas a participação direta de Nero; a supervisão global de Nyx continua ativa.
+- Ao entrar no Modo Maldade, Nyx poderá adotar um visual contextual mais ousado; o criador poderá solicitar mudanças por voz, pré-visualizar, confirmar, desfazer e salvar estilos.
+- A personalização mantém a identidade visual de Nyx, é privada do criador e não altera permissões, memória ou salvaguardas.
 - O Modo Maldade não remove salvaguardas, não altera permissões e permanece exclusivo ao criador autenticado.
 
 Ver ADR-0008 a ADR-0015 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
