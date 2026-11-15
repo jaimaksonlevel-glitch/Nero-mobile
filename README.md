@@ -74,9 +74,9 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 
 Ver ADR-0008 a ADR-0025 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
-### Guardião central de segurança — ADR-0018
+### Rafael — guardião central de segurança — ADR-0018
 
-- O **Modo Deus** é o terceiro agente: tecnicamente onipresente na camada de proteção, mas invisível e inacessível a todos os usuários, exceto o criador autenticado.
+- O **Rafael** é o terceiro agente: tecnicamente onipresente na camada de proteção, mas invisível e inacessível a todos os usuários, exceto o criador autenticado.
 - Atua nos bastidores para detectar violações, escaladas de permissão, falhas de integridade e evoluções arriscadas de Nero ou Nyx.
 - Pode conter riscos com ações limitadas e reversíveis, como congelar mudanças, isolar funções, cancelar tarefas e restaurar configurações previamente aprovadas e assinadas.
 - Mudanças persistentes em identidades, políticas, permissões ou no próprio guardião exigem revisão e aprovação explícita; nenhum agente pode ampliar os próprios privilégios.
@@ -95,7 +95,7 @@ Ver ADR-0008 a ADR-0025 para requisitos e critérios de aceite. Esta seção des
 - Nyx analisa somente conjuntos minimizados e aprovados, identifica padrões gerais e propõe melhorias; não recebe conversas privadas para treinamento coletivo.
 - Dados raros, identificadores, conteúdo livre e embeddings recuperáveis ficam fora do fluxo coletivo por padrão. Agregação deve ser avaliada contra reidentificação; quando necessário, usar limiares e privacidade diferencial.
 - Melhorias coletivas passam por testes isolados, revisão de privacidade/segurança, aprovação apropriada, implantação gradual e possibilidade de rollback.
-- O Modo Deus pode bloquear qualquer fluxo que viole esses limites, sem precisar ler o conteúdo privado dos usuários.
+- O Rafael pode bloquear qualquer fluxo que viole esses limites, sem precisar ler o conteúdo privado dos usuários.
 
 
 ### Nero Shield — proteção digital inteligente — ADR-0024
@@ -115,7 +115,7 @@ Ver ADR-0008 a ADR-0025 para requisitos e critérios de aceite. Esta seção des
 - Mudanças exigem autenticação, autorização explícita, revisão aplicável, assinatura criptográfica vinculada ao artefato e trilha de auditoria.
 - Políticas, prompts centrais, permissões, chaves e releases ficam fora do alcance de autoedição dos agentes; conteúdo externo nunca concede autoridade.
 - CI/CD, dependências, builds, proveniência, SBOM, chaves e rollback precisam de controles independentes e verificáveis.
-- Modo Deus monitora integridade e pode bloquear alterações não autorizadas, mas não é a raiz de confiança nem possui poder ilimitado.
+- Rafael monitora integridade e pode bloquear alterações não autorizadas, mas não é a raiz de confiança nem possui poder ilimitado.
 - **É uma especificação, não uma proteção já implementada ou auditada.** Sistemas conectados não podem prometer invulnerabilidade absoluta; modelos e infraestrutura de terceiros também têm limites de controle.
 
 ## Estado do projeto
@@ -143,7 +143,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0015-sleep-handoff-and-nyx-modo-maldade.md`: transferência automática da conversa de Nero para Nyx e Modo Maldade exclusivo do criador.
 - `docs/ADR-0016-autonomy-governance-and-agent-independence.md`: governança da autonomia, comunicação compreensível e separação entre expressão e permissões técnicas.
 - `docs/ADR-0017-emergency-stop-and-agent-deactivation.md`: interruptor geral de emergência, desativação local e remota, revogação e reativação explícita.
-- `docs/ADR-0018-god-mode-security-integrity-guardian.md`: Modo Deus como guardião central, exclusivo do criador, contenção de riscos e governança de mudanças.
+- `docs/ADR-0018-god-mode-security-integrity-guardian.md`: Rafael como guardião central, exclusivo do criador, contenção de riscos e governança de mudanças.
 - `docs/ADR-0019-collective-evolution-individuality-and-immutable-privacy.md`: evolução coletiva baseada em dados minimizados, análise agregada da Nyx e preservação imutável da privacidade e individualidade de cada usuário.
 - `docs/ADR-0020-technical-architecture-for-private-memory-and-collective-evolution.md`: separação técnica entre memória individual e telemetria coletiva, gateway de privacidade, acesso restrito da Nyx e fases de implementação.
 - `docs/ADR-0021-nyx-strategic-advisor-and-nero-evolution-reports.md`: Nyx como assistente pessoal e conselheira estratégica do criador, com relatórios de evolução da Nero baseados em evidências e dados protegidos.
