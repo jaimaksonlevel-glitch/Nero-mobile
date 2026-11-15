@@ -182,7 +182,7 @@ A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada d
 
 **O aplicativo ainda não está conectado a um backend implantado.** Para respostas reais, é necessário configurar e implantar o backend e definir `EXPO_PUBLIC_NERO_API_URL` no ambiente de build do Expo.
 
-Ainda não estão implementados: palavra de ativação, execução em segundo plano, memória persistente, análise de arquivos/imagens, agentes Nero/Nyx, supervisão, integração com notificações e respostas a mensagens, modo dormir e módulos de engenharia. A entrada de voz envia a gravação ao backend para transcrição e depende de chave válida e serviço implantado. A pesquisa web depende de chave válida, acesso à API e implantação do backend. A síntese de fala local precisa ser testada em aparelhos Android e iOS.
+Ainda não estão implementados: palavra de ativação, execução em segundo plano, memória persistente, análise de arquivos/imagens, agentes Nero/Nyx, supervisão, integração com notificações e respostas a mensagens, modo dormir e módulos de engenharia. A Nero Física (Nero Box e Nero Robot) também está apenas especificada no ADR-0033; não há hardware montado ou testado. A entrada de voz envia a gravação ao backend para transcrição e depende de chave válida e serviço implantado. A pesquisa web depende de chave válida, acesso à API e implantação do backend. A síntese de fala local precisa ser testada em aparelhos Android e iOS.
 
 ## Estrutura
 
@@ -216,6 +216,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0030-threat-model-and-security-implementation-roadmap.md`: modelo de ameaças, fronteiras de confiança, controles obrigatórios e plano de implementação seguro por fases.
 - `docs/ADR-0031-closed-alpha-program-and-ten-testers.md`: programa Alpha fechado com o criador como usuário principal e até dez participantes, isolamento individual e supervisão agregada da Nyx.
 - `docs/ADR-0032-assistant-not-warden-user-autonomy-and-proportional-protection.md`: princípio de assistente, não carcereiro; proteção sem vigilância, orientação sem imposição e autonomia com resposta proporcional a riscos.
+- `docs/ADR-0033-nero-physical-presence-box-and-interactive-robot.md`: Nero Física — protótipo em duas etapas (Nero Box e Nero Robot), arquitetura de voz, conectividade, expressões, movimento, privacidade e plano de validação.
 
 ## Backend (ambiente privado de desenvolvimento)
 
