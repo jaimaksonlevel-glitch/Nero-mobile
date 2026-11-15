@@ -176,6 +176,16 @@ Ver ADR-0008 a ADR-0027 para requisitos e critérios de aceite. Esta seção des
 - O grupo só será aberto após autenticação, isolamento, telemetria protegida, transparência, revogação e critérios de segurança serem implementados e testados.
 - **É uma especificação do programa; convites, autenticação e painel ainda não foram implementados.**
 
+### Nero Continuum — continuidade entre dispositivos e periféricos — ADR-0036
+
+- A Nero mantém uma identidade coerente e um contexto de trabalho autorizado entre celulares, tablets, computadores, smartwatches, óculos inteligentes, fones/headsets, telas e acessórios compatíveis; Nero Box/Robot permanecem evolução futura.
+- A continuidade usa um passaporte de contexto estruturado por tarefa/projeto: objetivo, estado, decisões, artefatos autorizados, premissas, proveniência, pendências e próximos passos — não uma cópia indiscriminada de conversas.
+- Cada dispositivo terá adaptadores e capacidades documentadas por modelo, sistema operacional, APIs e permissões. Pareamento não concede acesso automático a câmera, microfone, notificações, sensores ou dados.
+- O usuário controla dispositivos, sessões, permissões, handoffs, contexto sincronizado, exportação e exclusão. A sincronização prevê operação offline limitada e resolução explícita de conflitos.
+- Smartwatch prioriza alertas e comandos curtos; óculos inteligentes, assistência visual/áudio contextual iniciada e indicada ao usuário; fones, voz e áudio privado. Compatibilidade depende de APIs oficiais e hardware suportado.
+- Privacidade, isolamento por usuário, separação das memórias de Nero/Nyx, supervisão limitada e controles de Rafael seguem os ADRs anteriores.
+- **ADR-0036 é uma decisão de arquitetura e roteiro; serviço de contexto, sincronização, handoff e integrações com wearables/óculos ainda não foram implementados ou testados.**
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -219,6 +229,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0033-nero-physical-presence-box-and-interactive-robot.md`: Nero Física — protótipo em duas etapas (Nero Box e Nero Robot), arquitetura de voz, conectividade, expressões, movimento, privacidade e plano de validação.
 - `docs/ADR-0034-multiplatform-evolution-and-progressive-device-capabilities.md`: prioridade para celulares, tablets e computadores; identidade coerente, capacidades adaptadas a cada dispositivo e evolução física futura, sem permissões silenciosas.
 - `docs/ADR-0035-competitive-landscape-and-product-differentiation.md`: análise comparativa de Gemini Agent, Rabbit OS3, OpenAI dots e OpenClaw; diferenciação proposta, decisões de arquitetura, prioridades, riscos e critérios de validação.
+- `docs/ADR-0036-nero-continuum-peripheral-ecosystem.md`: continuidade de identidade e contexto entre dispositivos e periféricos, incluindo smartwatch e óculos inteligentes; passaporte de contexto, handoff, permissões, privacidade e roteiro incremental.
 
 ## Backend (ambiente privado de desenvolvimento)
 
