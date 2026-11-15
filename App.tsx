@@ -15,8 +15,9 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import * as Speech from "expo-speech";
+import { AudioModule, RecordingPresets, setAudioModeAsync, useAudioRecorder } from "expo-audio";
 import { neroPersona } from "./src/config/persona";
-import { askNero } from "./src/services/neroApi";
+import { askNero, transcribeAudio } from "./src/services/neroApi";
 import type { ChatMessage } from "./src/types/chat";
 
 const initialMessages: ChatMessage[] = [
@@ -33,6 +34,9 @@ export default function App() {
   const [draft, setDraft] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const [voiceRepliesEnabled, setVoiceRepliesEnabled] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [isTranscribing, setIsTranscribing] = useState(false);
+  const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
 
   useEffect(() => () => {
     Speech.stop();
@@ -45,9 +49,50 @@ export default function App() {
     });
   }
 
+  async function startVoiceRecording() {
+    try {
+      const permission = await AudioModule.requestRecordingPermissionsAsync();
+      if (!permission.granted) {
+        Alert.alert("Permissão necessária", "Para ditar uma mensagem, permita o acesso ao microfone nas configurações do aparelho.");
+        return;
+      }
+      await setAudioModeAsync({ allowsRecording: true, playsInSilentMode: true });
+      await audioRecorder.prepareToRecordAsync();
+      audioRecorder.record();
+      setIsRecording(true);
+    } catch {
+      setIsRecording(false);
+      Alert.alert("Não foi possível gravar", "Verifique a permissão do microfone e tente novamente.");
+    }
+  }
+
+  async function stopVoiceRecording() {
+    try {
+      await audioRecorder.stop();
+      setIsRecording(false);
+      const uri = audioRecorder.uri;
+      if (!uri) throw new Error("A gravação não gerou um arquivo de áudio.");
+      setIsTranscribing(true);
+      const transcript = await transcribeAudio(uri);
+      setDraft((current) => current ? `${current} ${transcript}` : transcript);
+      Alert.alert("Transcrição pronta", "Revise o texto no campo de mensagem antes de enviar ao Nero.");
+    } catch (error) {
+      setIsRecording(false);
+      const message = error instanceof Error ? error.message : "Tente novamente em instantes.";
+      Alert.alert("Falha na transcrição", message);
+    } finally {
+      setIsTranscribing(false);
+    }
+  }
+
+  async function toggleRecording() {
+    if (isRecording) await stopVoiceRecording();
+    else if (!isTranscribing && !isThinking) await startVoiceRecording();
+  }
+
   async function sendMessage() {
     const text = draft.trim();
-    if (!text || isThinking) return;
+    if (!text || isThinking || isRecording || isTranscribing) return;
 
     const userMessage: ChatMessage = {
       id: String(Date.now()),
@@ -137,8 +182,8 @@ export default function App() {
               </Text>
             </TouchableOpacity>
             <View style={styles.statusPill}>
-              <View style={[styles.statusDot, isThinking && styles.thinkingDot]} />
-              <Text style={styles.statusText}>{isThinking ? "PENSANDO" : "PRONTO"}</Text>
+              <View style={[styles.statusDot, isRecording && styles.recordingDot, (isThinking || isTranscribing) && styles.thinkingDot]} />
+              <Text style={styles.statusText}>{isRecording ? "GRAVANDO" : isTranscribing ? "TRANSCRIBINDO" : isThinking ? "PENSANDO" : "PRONTO"}</Text>
             </View>
           </View>
         </View>
@@ -207,8 +252,16 @@ export default function App() {
         </ScrollView>
 
         <View style={styles.composer}>
-          <TouchableOpacity style={styles.micButton} onPress={openVoiceInfo} accessibilityLabel="Informações sobre voz">
-            <Text style={styles.micGlyph}>◉</Text>
+          <TouchableOpacity
+            style={[styles.micButton, isRecording && styles.micButtonRecording, (isThinking || isTranscribing) && styles.disabledButton]}
+            onPress={toggleRecording}
+            disabled={isThinking || isTranscribing}
+            accessibilityRole="button"
+            accessibilityLabel={isRecording ? "Parar gravação" : "Gravar mensagem de voz"}
+          >
+            {isTranscribing ? <ActivityIndicator color="#FFFFFF" size="small" /> : (
+              <Text style={styles.micGlyph}>{isRecording ? "■" : "🎙"}</Text>
+            )}
           </TouchableOpacity>
           <TextInput
             style={styles.input}
@@ -217,18 +270,18 @@ export default function App() {
             placeholder="Converse com o Nero..."
             placeholderTextColor="#7F8AA3"
             multiline
-            editable={!isThinking}
+            editable={!isThinking && !isRecording && !isTranscribing}
           />
           <TouchableOpacity
             style={[styles.sendButton, isThinking && styles.disabledButton]}
             onPress={sendMessage}
-            disabled={isThinking || !draft.trim()}
+            disabled={isThinking || isRecording || isTranscribing || !draft.trim()}
             accessibilityLabel="Enviar mensagem"
           >
             <Text style={styles.sendGlyph}>➤</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.2.1 · {neroPersona.language.toUpperCase()}</Text>
+        <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.3.0 · {neroPersona.language.toUpperCase()}</Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -263,6 +316,7 @@ const styles = StyleSheet.create({
   },
   statusDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: "#3DDC97" },
   thinkingDot: { backgroundColor: "#F2B84B" },
+  recordingDot: { backgroundColor: "#FF5D68" },
   statusText: { color: "#8BE4BD", fontSize: 9, fontWeight: "700", letterSpacing: 1 },
   hero: { paddingTop: 27, paddingBottom: 18 },
   eyebrow: { color: "#4D9AFF", fontSize: 10, fontWeight: "700", letterSpacing: 2 },
@@ -301,6 +355,7 @@ const styles = StyleSheet.create({
     alignItems: "center", justifyContent: "center"
   },
   micGlyph: { color: "#9CC5FF", fontSize: 21 },
+  micButtonRecording: { backgroundColor: "#8E2636", borderWidth: 1, borderColor: "#FF6573" },
   input: { flex: 1, color: "#FFFFFF", fontSize: 14, maxHeight: 90, paddingVertical: 8 },
   sendButton: {
     width: 42, height: 42, borderRadius: 13, backgroundColor: "#1B6BFF",
