@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
   Platform,
@@ -13,6 +14,7 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { neroPersona } from "./src/config/persona";
+import { askNero } from "./src/services/neroApi";
 import type { ChatMessage } from "./src/types/chat";
 
 const initialMessages: ChatMessage[] = [
@@ -27,10 +29,11 @@ const initialMessages: ChatMessage[] = [
 export default function App() {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [draft, setDraft] = useState("");
+  const [isThinking, setIsThinking] = useState(false);
 
-  function sendMessage() {
+  async function sendMessage() {
     const text = draft.trim();
-    if (!text) return;
+    if (!text || isThinking) return;
 
     const userMessage: ChatMessage = {
       id: String(Date.now()),
@@ -38,15 +41,44 @@ export default function App() {
       text,
       createdAt: new Date()
     };
-
-    setMessages((current) => [...current, userMessage]);
+    const conversation = [...messages, userMessage];
+    setMessages(conversation);
     setDraft("");
+    setIsThinking(true);
+
+    try {
+      const reply = await askNero(conversation);
+      setMessages((current) => [
+        ...current,
+        {
+          id: `nero-${Date.now()}`,
+          role: "assistant",
+          text: reply,
+          createdAt: new Date()
+        }
+      ]);
+    } catch (error) {
+      const message = error instanceof Error
+        ? error.message
+        : "Ocorreu um erro inesperado.";
+      setMessages((current) => [
+        ...current,
+        {
+          id: `error-${Date.now()}`,
+          role: "assistant",
+          text: message,
+          createdAt: new Date()
+        }
+      ]);
+    } finally {
+      setIsThinking(false);
+    }
   }
 
   function openVoiceInfo() {
     Alert.alert(
       "Comando de voz",
-      "A interface de voz está preparada. O reconhecimento contínuo e a palavra de ativação “Nero” serão ligados na próxima etapa, com as permissões de microfone e o serviço de voz."
+      "A voz será integrada em uma etapa própria. O microfone não fica ativo neste protótipo."
     );
   }
 
@@ -66,8 +98,8 @@ export default function App() {
             </View>
           </View>
           <View style={styles.statusPill}>
-            <View style={styles.statusDot} />
-            <Text style={styles.statusText}>PRONTO</Text>
+            <View style={[styles.statusDot, isThinking && styles.thinkingDot]} />
+            <Text style={styles.statusText}>{isThinking ? "PENSANDO" : "PRONTO"}</Text>
           </View>
         </View>
 
@@ -84,7 +116,7 @@ export default function App() {
           </View>
           <View style={styles.modeCard}>
             <Text style={styles.modeLabel}>PERSONALIDADE</Text>
-            <Text style={styles.modeValue}>Hybrid</Text>
+            <Text style={styles.modeValue}>{neroPersona.personality === "hybrid" ? "Hybrid" : "Custom"}</Text>
           </View>
         </View>
 
@@ -107,10 +139,16 @@ export default function App() {
               <Text style={styles.messageText}>{message.text}</Text>
             </View>
           ))}
+          {isThinking && (
+            <View style={[styles.bubble, styles.assistantBubble, styles.loadingBubble]}>
+              <ActivityIndicator color="#75AFFF" size="small" />
+              <Text style={styles.loadingText}>Nero está pensando...</Text>
+            </View>
+          )}
         </ScrollView>
 
         <View style={styles.composer}>
-          <TouchableOpacity style={styles.micButton} onPress={openVoiceInfo} accessibilityLabel="Ativar voz">
+          <TouchableOpacity style={styles.micButton} onPress={openVoiceInfo} accessibilityLabel="Informações sobre voz">
             <Text style={styles.micGlyph}>◉</Text>
           </TouchableOpacity>
           <TextInput
@@ -120,14 +158,18 @@ export default function App() {
             placeholder="Converse com o Nero..."
             placeholderTextColor="#7F8AA3"
             multiline
-            returnKeyType="send"
-            onSubmitEditing={sendMessage}
+            editable={!isThinking}
           />
-          <TouchableOpacity style={styles.sendButton} onPress={sendMessage} accessibilityLabel="Enviar mensagem">
+          <TouchableOpacity
+            style={[styles.sendButton, isThinking && styles.disabledButton]}
+            onPress={sendMessage}
+            disabled={isThinking || !draft.trim()}
+            accessibilityLabel="Enviar mensagem"
+          >
             <Text style={styles.sendGlyph}>➤</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.1.0</Text>
+        <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.2.0 · {neroPersona.language.toUpperCase()}</Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -153,6 +195,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6, borderRadius: 20, backgroundColor: "#142B2B"
   },
   statusDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: "#3DDC97" },
+  thinkingDot: { backgroundColor: "#F2B84B" },
   statusText: { color: "#8BE4BD", fontSize: 9, fontWeight: "700", letterSpacing: 1 },
   hero: { paddingTop: 27, paddingBottom: 18 },
   eyebrow: { color: "#4D9AFF", fontSize: 10, fontWeight: "700", letterSpacing: 2 },
@@ -175,6 +218,8 @@ const styles = StyleSheet.create({
   userBubble: { alignSelf: "flex-end", backgroundColor: "#174FAE", borderTopRightRadius: 5 },
   messageRole: { color: "#8EAEDE", fontSize: 9, fontWeight: "800", letterSpacing: 1, marginBottom: 6 },
   messageText: { color: "#F2F6FF", fontSize: 14, lineHeight: 21 },
+  loadingBubble: { flexDirection: "row", alignItems: "center", gap: 10 },
+  loadingText: { color: "#9AA7BD", fontSize: 12 },
   composer: {
     flexDirection: "row", alignItems: "center", gap: 9, padding: 9,
     backgroundColor: "#141E31", borderRadius: 18, borderWidth: 1, borderColor: "#293852"
@@ -189,6 +234,7 @@ const styles = StyleSheet.create({
     width: 42, height: 42, borderRadius: 13, backgroundColor: "#1B6BFF",
     alignItems: "center", justifyContent: "center"
   },
+  disabledButton: { opacity: 0.45 },
   sendGlyph: { color: "#FFFFFF", fontSize: 19, fontWeight: "700" },
   footer: { color: "#596781", textAlign: "center", fontSize: 8, letterSpacing: 1.4, paddingVertical: 12 }
 });
