@@ -215,6 +215,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0029-rafael-protective-intervention-and-fundamental-principles.md`: autoridade proporcional de Rafael para intervir quando Nero ou Nyx ameaçar princípios fundamentais, integridade ou privacidade dos usuários.
 - `docs/ADR-0030-threat-model-and-security-implementation-roadmap.md`: modelo de ameaças, fronteiras de confiança, controles obrigatórios e plano de implementação seguro por fases.
 - `docs/ADR-0031-closed-alpha-program-and-ten-testers.md`: programa Alpha fechado com o criador como usuário principal e até dez participantes, isolamento individual e supervisão agregada da Nyx.
+- `docs/ADR-0032-assistant-not-warden-user-autonomy-and-proportional-protection.md`: princípio de assistente, não carcereiro; proteção sem vigilância, orientação sem imposição e autonomia com resposta proporcional a riscos.
 
 ## Backend (ambiente privado de desenvolvimento)
 
