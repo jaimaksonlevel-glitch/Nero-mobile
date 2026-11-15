@@ -1,4 +1,4 @@
-import type { ChatMessage } from "../types/chat";
+import type { ChatMessage, NeroReply } from "../types/chat";
 
 const API_URL = process.env.EXPO_PUBLIC_NERO_API_URL?.replace(/\/$/, "");
 
@@ -9,7 +9,7 @@ export class NeroApiError extends Error {
   }
 }
 
-export async function askNero(messages: ChatMessage[]): Promise<string> {
+export async function askNero(messages: ChatMessage[]): Promise<NeroReply> {
   if (!API_URL) {
     throw new NeroApiError(
       "A conexão com o cérebro do Nero ainda não foi configurada. O endereço seguro do serviço será definido na etapa de implantação."
@@ -36,6 +36,7 @@ export async function askNero(messages: ChatMessage[]): Promise<string> {
 
   const data = (await response.json().catch(() => ({}))) as {
     reply?: string;
+    sources?: NeroReply["sources"];
     error?: string;
   };
 
@@ -45,5 +46,8 @@ export async function askNero(messages: ChatMessage[]): Promise<string> {
     );
   }
 
-  return data.reply;
+  return {
+    reply: data.reply,
+    sources: Array.isArray(data.sources) ? data.sources : []
+  };
 }
