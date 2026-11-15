@@ -72,7 +72,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Desativar não apaga automaticamente memórias ou configurações. O estado de emergência prevalece sobre modos, presets e automações.
 - A interface deve informar com honestidade o que foi interrompido localmente e o que ainda aguarda confirmação remota.
 
-Ver ADR-0008 a ADR-0017 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0019 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ### Guardião central de segurança — ADR-0018
 
@@ -82,6 +82,12 @@ Ver ADR-0008 a ADR-0017 para requisitos e critérios de aceite. Esta seção des
 - Mudanças persistentes em identidades, políticas, permissões ou no próprio guardião exigem revisão e aprovação explícita; nenhum agente pode ampliar os próprios privilégios.
 - A proteção não depende apenas de uma IA: controles determinísticos, autenticação, integridade de artefatos e o interruptor de emergência do ADR-0017 permanecem independentes.
 - A onipresença técnica não significa acesso irrestrito a conversas ou dados privados. Relatórios ao criador usam dados minimizados e respeitam o isolamento dos usuários.
+- A privacidade é imutável: criador e equipe recebem apenas indicadores técnicos e estatísticas agregadas protegidas, nunca conversas, arquivos, memórias ou dados pessoais privados.
+- Cada Nero mantém sua personalização, memórias e preferências isoladas por usuário; a evolução coletiva não pode sobrescrevê-las nem transferi-las entre contas.
+- Nyx analisa somente conjuntos minimizados e aprovados, identifica padrões gerais e propõe melhorias; não recebe conversas privadas para treinamento coletivo.
+- Dados raros, identificadores, conteúdo livre e embeddings recuperáveis ficam fora do fluxo coletivo por padrão. Agregação deve ser avaliada contra reidentificação; quando necessário, usar limiares e privacidade diferencial.
+- Melhorias coletivas passam por testes isolados, revisão de privacidade/segurança, aprovação apropriada, implantação gradual e possibilidade de rollback.
+- O Modo Deus pode bloquear qualquer fluxo que viole esses limites, sem precisar ler o conteúdo privado dos usuários.
 
 ## Estado do projeto
 
@@ -109,6 +115,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0016-autonomy-governance-and-agent-independence.md`: governança da autonomia, comunicação compreensível e separação entre expressão e permissões técnicas.
 - `docs/ADR-0017-emergency-stop-and-agent-deactivation.md`: interruptor geral de emergência, desativação local e remota, revogação e reativação explícita.
 - `docs/ADR-0018-god-mode-security-integrity-guardian.md`: Modo Deus como guardião central, exclusivo do criador, contenção de riscos e governança de mudanças.
+- `docs/ADR-0019-collective-evolution-individuality-and-immutable-privacy.md`: evolução coletiva baseada em dados minimizados, análise agregada da Nyx e preservação imutável da privacidade e individualidade de cada usuário.
 
 ## Backend (ambiente privado de desenvolvimento)
 
