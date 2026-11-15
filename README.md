@@ -72,7 +72,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Desativar não apaga automaticamente memórias ou configurações. O estado de emergência prevalece sobre modos, presets e automações.
 - A interface deve informar com honestidade o que foi interrompido localmente e o que ainda aguarda confirmação remota.
 
-Ver ADR-0008 a ADR-0021 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0024 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ### Guardião central de segurança — ADR-0018
 
@@ -96,6 +96,17 @@ Ver ADR-0008 a ADR-0021 para requisitos e critérios de aceite. Esta seção des
 - Dados raros, identificadores, conteúdo livre e embeddings recuperáveis ficam fora do fluxo coletivo por padrão. Agregação deve ser avaliada contra reidentificação; quando necessário, usar limiares e privacidade diferencial.
 - Melhorias coletivas passam por testes isolados, revisão de privacidade/segurança, aprovação apropriada, implantação gradual e possibilidade de rollback.
 - O Modo Deus pode bloquear qualquer fluxo que viole esses limites, sem precisar ler o conteúdo privado dos usuários.
+
+
+### Nero Shield — proteção digital inteligente — ADR-0024
+
+- Nero e Nyx terão a mesma camada de proteção contra links maliciosos, phishing, golpes, engenharia social, anexos perigosos, arquivos suspeitos, QR codes fraudulentos, tentativas de roubo de credenciais e riscos detectáveis de aplicativos/contas.
+- A proteção combina verificações determinísticas, reputação/assinaturas atualizadas, análise contextual e sandbox isolada quando aplicável; a IA não será a única barreira de segurança.
+- O sistema explica evidências, severidade, confiança e limitações; não acusa pessoas com base em sinais ambíguos e não promete detectar todos os ataques.
+- Privacidade é obrigatória: análise local sempre que possível, sem captura oculta ou envio de conteúdo privado a terceiros por padrão; telemetria coletiva continua limitada às regras dos ADRs-0019, 0020 e 0022.
+- Android e iOS têm capacidades diferentes. Não prometemos varredura irrestrita do dispositivo, inspeção de outros aplicativos ou monitoramento universal.
+- Ações destrutivas ou externas exigem autorização específica. O usuário pode revisar alertas, contestar falsos positivos e desativar a proteção.
+- **Nero Shield ainda é uma especificação; nenhum antivírus, scanner, sandbox ou monitoramento em tempo real foi implementado.**
 
 ## Estado do projeto
 
@@ -128,6 +139,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0021-nyx-strategic-advisor-and-nero-evolution-reports.md`: Nyx como assistente pessoal e conselheira estratégica do criador, com relatórios de evolução da Nero baseados em evidências e dados protegidos.
 - `docs/ADR-0022-collective-learning-from-nero-instances.md`: Nyx identifica padrões técnicos protegidos entre instâncias da Nero e propõe melhorias coletivas validadas, preservando memórias e personalizações individuais.
 - `docs/ADR-0023-charter-of-trust-privacy-and-protection.md`: carta fundamental de confiança, sinceridade, evolução, atitude, privacidade e proteção; detecção contextual de riscos e resposta proporcional, sem vigilância ou acusações precipitadas.
+- `docs/ADR-0024-nero-shield-intelligent-digital-protection.md`: Nero Shield, arquitetura de proteção digital contra phishing, golpes, links e arquivos maliciosos, QR codes fraudulentos e riscos de contas/dispositivos, com privacidade e limites Android/iOS.
 
 ## Backend (ambiente privado de desenvolvimento)
 
