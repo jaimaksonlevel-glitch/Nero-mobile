@@ -19,6 +19,8 @@ import { AudioModule, RecordingPresets, setAudioModeAsync, useAudioRecorder } fr
 import { neroPersona } from "./src/config/persona";
 import { askNero, transcribeAudio } from "./src/services/neroApi";
 import type { ChatMessage } from "./src/types/chat";
+import { AuthScreen } from "./src/components/AuthScreen";
+import { signOut, useNeroAuth } from "./src/services/auth";
 
 const initialMessages: ChatMessage[] = [
   {
@@ -30,6 +32,7 @@ const initialMessages: ChatMessage[] = [
 ];
 
 export default function App() {
+  const auth = useNeroAuth();
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [draft, setDraft] = useState("");
   const [isThinking, setIsThinking] = useState(false);
@@ -41,6 +44,20 @@ export default function App() {
   useEffect(() => () => {
     Speech.stop();
   }, []);
+
+  if (auth.loading) {
+    return (
+      <SafeAreaView style={styles.safe}>
+        <StatusBar style="light" />
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+          <ActivityIndicator color="#75AFFF" size="large" />
+          <Text style={{ color: "#9AA7BD", marginTop: 12 }}>Verificando sua sessão...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  if (!auth.session) return <AuthScreen configured={auth.configured} />;
 
   function toggleVoiceReplies() {
     setVoiceRepliesEnabled((enabled) => {
@@ -165,6 +182,14 @@ export default function App() {
             </View>
           </View>
           <View style={styles.headerActions}>
+            <TouchableOpacity
+              style={styles.voiceToggle}
+              onPress={() => signOut().catch(() => Alert.alert("Falha ao sair", "Não foi possível encerrar a sessão agora."))}
+              accessibilityRole="button"
+              accessibilityLabel="Sair da conta"
+            >
+              <Text style={styles.voiceToggleText}>SAIR</Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={[styles.voiceToggle, voiceRepliesEnabled && styles.voiceToggleOn]}
               onPress={toggleVoiceReplies}
