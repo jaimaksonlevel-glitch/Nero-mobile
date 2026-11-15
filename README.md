@@ -72,7 +72,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Desativar não apaga automaticamente memórias ou configurações. O estado de emergência prevalece sobre modos, presets e automações.
 - A interface deve informar com honestidade o que foi interrompido localmente e o que ainda aguarda confirmação remota.
 
-Ver ADR-0008 a ADR-0024 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0025 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ### Guardião central de segurança — ADR-0018
 
@@ -108,6 +108,16 @@ Ver ADR-0008 a ADR-0024 para requisitos e critérios de aceite. Esta seção des
 - Ações destrutivas ou externas exigem autorização específica. O usuário pode revisar alertas, contestar falsos positivos e desativar a proteção.
 - **Nero Shield ainda é uma especificação; nenhum antivírus, scanner, sandbox ou monitoramento em tempo real foi implementado.**
 
+
+### Nero Core Integrity — integridade do núcleo — ADR-0025
+
+- Nenhuma pessoa, fornecedor, agente externo ou agente interno pode alterar unilateralmente o núcleo protegido da Nero.
+- Mudanças exigem autenticação, autorização explícita, revisão aplicável, assinatura criptográfica vinculada ao artefato e trilha de auditoria.
+- Políticas, prompts centrais, permissões, chaves e releases ficam fora do alcance de autoedição dos agentes; conteúdo externo nunca concede autoridade.
+- CI/CD, dependências, builds, proveniência, SBOM, chaves e rollback precisam de controles independentes e verificáveis.
+- Modo Deus monitora integridade e pode bloquear alterações não autorizadas, mas não é a raiz de confiança nem possui poder ilimitado.
+- **É uma especificação, não uma proteção já implementada ou auditada.** Sistemas conectados não podem prometer invulnerabilidade absoluta; modelos e infraestrutura de terceiros também têm limites de controle.
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -140,6 +150,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0022-collective-learning-from-nero-instances.md`: Nyx identifica padrões técnicos protegidos entre instâncias da Nero e propõe melhorias coletivas validadas, preservando memórias e personalizações individuais.
 - `docs/ADR-0023-charter-of-trust-privacy-and-protection.md`: carta fundamental de confiança, sinceridade, evolução, atitude, privacidade e proteção; detecção contextual de riscos e resposta proporcional, sem vigilância ou acusações precipitadas.
 - `docs/ADR-0024-nero-shield-intelligent-digital-protection.md`: Nero Shield, arquitetura de proteção digital contra phishing, golpes, links e arquivos maliciosos, QR codes fraudulentos e riscos de contas/dispositivos, com privacidade e limites Android/iOS.
+- `docs/ADR-0025-nero-core-integrity-unauthorized-change-protection.md`: Nero Core Integrity, proteção contra alterações não autorizadas em código, políticas, identidade, modelos, permissões, chaves, cadeia de suprimentos e releases.
 
 ## Backend (ambiente privado de desenvolvimento)
 
