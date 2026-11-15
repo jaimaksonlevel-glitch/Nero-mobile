@@ -69,6 +69,7 @@ export default function App() {
   async function stopVoiceRecording() {
     try {
       await audioRecorder.stop();
+      await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true });
       setIsRecording(false);
       const uri = audioRecorder.uri;
       if (!uri) throw new Error("A gravação não gerou um arquivo de áudio.");
@@ -81,6 +82,7 @@ export default function App() {
       const message = error instanceof Error ? error.message : "Tente novamente em instantes.";
       Alert.alert("Falha na transcrição", message);
     } finally {
+      await setAudioModeAsync({ allowsRecording: false, playsInSilentMode: true }).catch(() => undefined);
       setIsTranscribing(false);
     }
   }
@@ -145,13 +147,6 @@ export default function App() {
     } finally {
       setIsThinking(false);
     }
-  }
-
-  function openVoiceInfo() {
-    Alert.alert(
-      "Voz do Nero",
-      "A saída de voz usa a síntese de fala disponível no próprio aparelho. Ela só é ativada quando você liga o botão VOZ. O microfone não é utilizado nesta etapa."
-    );
   }
 
   return (
