@@ -127,6 +127,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0020-technical-architecture-for-private-memory-and-collective-evolution.md`: separação técnica entre memória individual e telemetria coletiva, gateway de privacidade, acesso restrito da Nyx e fases de implementação.
 - `docs/ADR-0021-nyx-strategic-advisor-and-nero-evolution-reports.md`: Nyx como assistente pessoal e conselheira estratégica do criador, com relatórios de evolução da Nero baseados em evidências e dados protegidos.
 - `docs/ADR-0022-collective-learning-from-nero-instances.md`: Nyx identifica padrões técnicos protegidos entre instâncias da Nero e propõe melhorias coletivas validadas, preservando memórias e personalizações individuais.
+- `docs/ADR-0023-charter-of-trust-privacy-and-protection.md`: carta fundamental de confiança, sinceridade, evolução, atitude, privacidade e proteção; detecção contextual de riscos e resposta proporcional, sem vigilância ou acusações precipitadas.
 
 ## Backend (ambiente privado de desenvolvimento)
 
