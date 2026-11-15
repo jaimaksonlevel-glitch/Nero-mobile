@@ -19,8 +19,11 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - O criador poderá receber alertas minimizados sobre falhas relevantes identificadas pela supervisão. Alertas não devem expor conversas privadas, arquivos ou identificadores dos usuários por padrão.
 - O **Modo dormir** do criador suspenderá o atendimento da Nero e transferirá a conversa para Nyx; não desliga a supervisão global.
 - Nyx não substitui salvaguardas essenciais nem recebe acesso irrestrito a dados dos usuários.
+- Nero e Nyx compartilharão uma Central de Assistência e Comunicação para notificações autorizadas, análise contextual e respostas em nome do usuário, com permissões granulares e controle de envio.
+- No Android, a proposta avalia NotificationListenerService e respostas somente por ações expostas pelo aplicativo ou integrações oficiais. No iOS, a experiência será limitada às APIs e extensões oficialmente disponíveis; não há promessa de leitura/resposta universal.
+- Envio automático ficará desativado por padrão e só poderá ocorrer mediante regra explícita, específica e revogável do usuário.
 
-Ver ADR-0008 e ADR-0009 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008, ADR-0009 e ADR-0010 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
@@ -28,7 +31,7 @@ A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada d
 
 **O aplicativo ainda não está conectado a um backend implantado.** Para respostas reais, é necessário configurar e implantar o backend e definir `EXPO_PUBLIC_NERO_API_URL` no ambiente de build do Expo.
 
-Ainda não estão implementados: palavra de ativação, execução em segundo plano, memória persistente, análise de arquivos/imagens, agentes Nero/Nyx, supervisão e notificações, modo dormir e módulos de engenharia. A entrada de voz envia a gravação ao backend para transcrição e depende de chave válida e serviço implantado. A pesquisa web depende de chave válida, acesso à API e implantação do backend. A síntese de fala local precisa ser testada em aparelhos Android e iOS.
+Ainda não estão implementados: palavra de ativação, execução em segundo plano, memória persistente, análise de arquivos/imagens, agentes Nero/Nyx, supervisão, integração com notificações e respostas a mensagens, modo dormir e módulos de engenharia. A entrada de voz envia a gravação ao backend para transcrição e depende de chave válida e serviço implantado. A pesquisa web depende de chave válida, acesso à API e implantação do backend. A síntese de fala local precisa ser testada em aparelhos Android e iOS.
 
 ## Estrutura
 
@@ -40,6 +43,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0001-wake-word-nero.md` a `docs/ADR-0007-wake-model-training-plan.md`: decisões e avaliações técnicas da arquitetura Wake.
 - `docs/ADR-0008-adaptive-conversation-and-modes.md`: comunicação adaptável, personalidade e modos.
 - `docs/ADR-0009-nyx-central-supervisor.md`: Nyx como agente supervisora central, privacidade, alertas e experiência do criador.
+- `docs/ADR-0010-notification-assistant-integration.md`: integração de notificações e respostas, permissões Android/iOS, automação responsável e privacidade.
 
 ## Backend (ambiente privado de desenvolvimento)
 
