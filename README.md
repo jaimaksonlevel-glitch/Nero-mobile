@@ -72,7 +72,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Desativar não apaga automaticamente memórias ou configurações. O estado de emergência prevalece sobre modos, presets e automações.
 - A interface deve informar com honestidade o que foi interrompido localmente e o que ainda aguarda confirmação remota.
 
-Ver ADR-0008 a ADR-0019 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0020 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ### Guardião central de segurança — ADR-0018
 
@@ -83,6 +83,10 @@ Ver ADR-0008 a ADR-0019 para requisitos e critérios de aceite. Esta seção des
 - A proteção não depende apenas de uma IA: controles determinísticos, autenticação, integridade de artefatos e o interruptor de emergência do ADR-0017 permanecem independentes.
 - A onipresença técnica não significa acesso irrestrito a conversas ou dados privados. Relatórios ao criador usam dados minimizados e respeitam o isolamento dos usuários.
 - A privacidade é imutável: criador e equipe recebem apenas indicadores técnicos e estatísticas agregadas protegidas, nunca conversas, arquivos, memórias ou dados pessoais privados.
+- A arquitetura separa o plano de memória individual do plano de telemetria coletiva: serviços, credenciais e permissões distintos, com isolamento por tenant validado no servidor.
+- Nyx só recebe conjuntos liberados por um gateway de privacidade com esquema allowlist, minimização, limiares de agregação e avaliação de risco; não possui credenciais ou consultas diretas ao banco de memória.
+- Prompts, respostas, feedback livre, anexos, embeddings e resumos derivados de conteúdo privado ficam fora do fluxo coletivo por padrão.
+- Exclusão e retenção devem abranger memórias, caches, índices vetoriais e cópias derivadas; treinamento coletivo com conversas privadas não é permitido por padrão.
 - Cada Nero mantém sua personalização, memórias e preferências isoladas por usuário; a evolução coletiva não pode sobrescrevê-las nem transferi-las entre contas.
 - Nyx analisa somente conjuntos minimizados e aprovados, identifica padrões gerais e propõe melhorias; não recebe conversas privadas para treinamento coletivo.
 - Dados raros, identificadores, conteúdo livre e embeddings recuperáveis ficam fora do fluxo coletivo por padrão. Agregação deve ser avaliada contra reidentificação; quando necessário, usar limiares e privacidade diferencial.
@@ -116,6 +120,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0017-emergency-stop-and-agent-deactivation.md`: interruptor geral de emergência, desativação local e remota, revogação e reativação explícita.
 - `docs/ADR-0018-god-mode-security-integrity-guardian.md`: Modo Deus como guardião central, exclusivo do criador, contenção de riscos e governança de mudanças.
 - `docs/ADR-0019-collective-evolution-individuality-and-immutable-privacy.md`: evolução coletiva baseada em dados minimizados, análise agregada da Nyx e preservação imutável da privacidade e individualidade de cada usuário.
+- `docs/ADR-0020-technical-architecture-for-private-memory-and-collective-evolution.md`: separação técnica entre memória individual e telemetria coletiva, gateway de privacidade, acesso restrito da Nyx e fases de implementação.
 
 ## Backend (ambiente privado de desenvolvimento)
 
