@@ -42,7 +42,15 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Android exige autorização explícita para overlay; no iOS serão usadas apenas alternativas oficialmente permitidas.
 - A presença visual não concede acesso a mensagens ou conteúdo de outros apps: permissões de notificações, microfone e respostas continuam independentes.
 
-Ver ADR-0008 a ADR-0014 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+### Transição de descanso e Modo Maldade — ADR-0015
+
+- No aplicativo do criador autenticado, o comando **“Nero, está na hora de dormir”** transfere automaticamente a conversa direta para Nyx e coloca Nero no estado visual de descanso.
+- Nyx assume com o **Modo Maldade 🔞**: personalidade mais ousada, provocante, irônica e flertante, adequada a conversas adultas consensuais.
+- O comando **“Nero, pode acordar”** devolve a condução da conversa para Nero.
+- O descanso suspende apenas a participação direta de Nero; a supervisão global de Nyx continua ativa.
+- O Modo Maldade não remove salvaguardas, não altera permissões e permanece exclusivo ao criador autenticado.
+
+Ver ADR-0008 a ADR-0015 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ## Estado do projeto
 
@@ -65,6 +73,8 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0010-notification-assistant-integration.md`: integração de notificações e respostas, permissões Android/iOS, automação responsável e privacidade.
 - `docs/ADR-0011-visual-identity-and-avatar-customization.md`: aparência humana realista, expressões e personalização visual.
 - `docs/ADR-0012-floating-companions-overlay.md`: avatares flutuantes e interação contextual sobre outros aplicativos, respeitando Android/iOS.\n- `docs/ADR-0013-avatar-expression-and-motion-system.md`: estados expressivos, personalidade visual, animações e plano de prototipagem.
+- `docs/ADR-0014-floating-companions-voice-layout-and-styles.md`: voz, layout compacto, interação conjunta e estilos visuais.
+- `docs/ADR-0015-sleep-handoff-and-nyx-modo-maldade.md`: transferência automática da conversa de Nero para Nyx e Modo Maldade exclusivo do criador.
 
 ## Backend (ambiente privado de desenvolvimento)
 
