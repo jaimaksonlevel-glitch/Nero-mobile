@@ -72,7 +72,7 @@ Aplicativo móvel do assistente Nero, da Level Engenharia.
 - Desativar não apaga automaticamente memórias ou configurações. O estado de emergência prevalece sobre modos, presets e automações.
 - A interface deve informar com honestidade o que foi interrompido localmente e o que ainda aguarda confirmação remota.
 
-Ver ADR-0008 a ADR-0025 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
+Ver ADR-0008 a ADR-0027 para requisitos e critérios de aceite. Esta seção descreve decisões de produto/arquitetura, não funcionalidades já implementadas.
 
 ### Rafael — guardião central de segurança — ADR-0018
 
@@ -118,6 +118,16 @@ Ver ADR-0008 a ADR-0025 para requisitos e critérios de aceite. Esta seção des
 - Rafael monitora integridade e pode bloquear alterações não autorizadas, mas não é a raiz de confiança nem possui poder ilimitado.
 - **É uma especificação, não uma proteção já implementada ou auditada.** Sistemas conectados não podem prometer invulnerabilidade absoluta; modelos e infraestrutura de terceiros também têm limites de controle.
 
+
+### Defesa em profundidade e auditoria de Rafael — ADR-0027
+
+- A segurança não depende de esconder Rafael nem de uma ordem previsível de descoberta. A arquitetura protege superfícies públicas, APIs, sessões, ferramentas, dados, configurações e cadeia de atualização por camadas independentes.
+- Rafael coordena contenção limitada e autorizada; a raiz de confiança permanece em controles determinísticos, chaves protegidas, assinatura de artefatos e autorização independente dos agentes.
+- Nyx recebe uma visão somente de leitura de uma trilha de auditoria independente e reporta ao criador tentativas de violação, ações de Rafael, resultados, riscos residuais e oportunidades de melhoria.
+- A trilha deve ser append-only/tamper-evident; Nyx não depende apenas do relato do próprio Rafael e não pode apagar registros ou alterar suas políticas.
+- Alertas usam metadados técnicos mínimos e nunca expõem conversas, arquivos, memórias, notificações ou dados pessoais privados dos usuários.
+- **A defesa em camadas, a auditoria independente e os relatórios da Nyx ainda são especificações; não estão implementados nem auditados.**
+
 ## Estado do projeto
 
 A versão 0.3.0 mantém síntese de fala local opcional (VOZ ON/OFF) e entrada de voz por gravação manual: o usuário toca no microfone para iniciar, toca novamente para parar e recebe a transcrição no campo de mensagem para revisar antes de enviar. O microfone só é solicitado após o toque; não há gravação em segundo plano nem escuta contínua. A integração web adiciona pesquisa opcional pela ferramenta `web_search` da Responses API, com links das fontes exibidos na conversa.
@@ -152,6 +162,7 @@ Ainda não estão implementados: palavra de ativação, execução em segundo pl
 - `docs/ADR-0024-nero-shield-intelligent-digital-protection.md`: Nero Shield, arquitetura de proteção digital contra phishing, golpes, links e arquivos maliciosos, QR codes fraudulentos e riscos de contas/dispositivos, com privacidade e limites Android/iOS.
 - `docs/ADR-0025-nero-core-integrity-unauthorized-change-protection.md`: Nero Core Integrity, proteção contra alterações não autorizadas em código, políticas, identidade, modelos, permissões, chaves, cadeia de suprimentos e releases.
 - `docs/ADR-0026-rafael-guardian-identity-and-mission.md`: Rafael como nome oficial do guardião, sua missão de proteger Nero e Nyx, resposta a acessos externos e limites de privacidade e autonomia.
+- `docs/ADR-0027-defense-in-depth-and-rafael-independent-audit.md`: defesa em profundidade, raiz de confiança independente, auditoria das ações de Rafael e relatórios de incidentes da Nyx ao criador.
 
 ## Backend (ambiente privado de desenvolvimento)
 
