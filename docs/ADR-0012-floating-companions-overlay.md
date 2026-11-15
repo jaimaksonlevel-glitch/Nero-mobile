@@ -13,6 +13,16 @@ O objetivo é tornar as assistentes companheiras contextuais e acessíveis, sem 
 
 Criar o recurso **Companheiras Flutuantes**, com disponibilidade e comportamento adaptados às APIs de cada sistema operacional.
 
+### Direção visual dos avatares
+
+- Avatares com **traços humanos realistas**, aparência de personagens originais e sensação de presença; evitar mascotes ou estética infantil.
+- A personalidade deve aparecer principalmente no rosto e na expressão: olhar, microexpressões, sorriso, sobrancelhas, inclinação da cabeça e gestos naturais.
+- Asinhas delicadas e integradas ao visual são um detalhe fantástico complementar, não o foco principal nem uma transformação em criatura caricata.
+- Cabelo, roupas, acessórios, postura e paleta ajudam a diferenciar Nero e Nyx.
+- Animações discretas e fluidas, com expressões contextuais e sincronização coerente com a fala, sem movimentos excessivos.
+- As expressões podem variar conforme o contexto e a personalidade, respeitando a frequência e o modo silencioso definidos pelo usuário.
+- A direção visual detalhada e a personalização seguem a ADR-0011.
+
 ### Experiência
 
 1. O usuário poderá ativar ou desativar a presença flutuante e escolher quando ela aparece.
@@ -59,6 +69,8 @@ Criar o recurso **Companheiras Flutuantes**, com disponibilidade e comportamento
 - No Android compatível, usuário concede a permissão do sistema conscientemente e consegue exibir, mover, recolher, pausar e fechar o avatar.
 - O avatar não bloqueia controles essenciais nem se sobrepõe a telas sensíveis.
 - O usuário consegue limitar a aparição a aplicativos e horários selecionados.
+- Os avatares apresentam traços humanos realistas, expressões naturais e asinhas discretas como detalhe complementar.
+- Expressões e movimentos são fluidos, contextuais e configuráveis, sem prejudicar legibilidade, desempenho ou autonomia do usuário.
 - Nero está disponível a todos os usuários; Nyx permanece exclusiva do criador autenticado, também na camada flutuante.
 - O recurso não lê nem captura conteúdo de outros aplicativos sem autorização independente.
 - No iOS, a interface oferece somente alternativas permitidas e descreve honestamente as limitações.
