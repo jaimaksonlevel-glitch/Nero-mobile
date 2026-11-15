@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -13,6 +13,7 @@ import {
   View
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
+import * as Speech from "expo-speech";
 import { neroPersona } from "./src/config/persona";
 import { askNero } from "./src/services/neroApi";
 import type { ChatMessage } from "./src/types/chat";
@@ -30,6 +31,18 @@ export default function App() {
   const [messages, setMessages] = useState<ChatMessage[]>(initialMessages);
   const [draft, setDraft] = useState("");
   const [isThinking, setIsThinking] = useState(false);
+  const [voiceRepliesEnabled, setVoiceRepliesEnabled] = useState(false);
+
+  useEffect(() => () => {
+    Speech.stop();
+  }, []);
+
+  function toggleVoiceReplies() {
+    setVoiceRepliesEnabled((enabled) => {
+      if (enabled) Speech.stop();
+      return !enabled;
+    });
+  }
 
   async function sendMessage() {
     const text = draft.trim();
@@ -57,6 +70,18 @@ export default function App() {
           createdAt: new Date()
         }
       ]);
+      if (voiceRepliesEnabled) {
+        Speech.stop();
+        Speech.speak(reply, {
+          language: "pt-BR",
+          rate: 0.95,
+          pitch: 1.0,
+          onError: () => Alert.alert(
+            "Áudio indisponível",
+            "Não foi possível reproduzir a resposta. Verifique as configurações de voz do aparelho."
+          )
+        });
+      }
     } catch (error) {
       const message = error instanceof Error
         ? error.message
@@ -77,8 +102,8 @@ export default function App() {
 
   function openVoiceInfo() {
     Alert.alert(
-      "Comando de voz",
-      "A voz será integrada em uma etapa própria. O microfone não fica ativo neste protótipo."
+      "Voz do Nero",
+      "A saída de voz usa a síntese de fala disponível no próprio aparelho. Ela só é ativada quando você liga o botão VOZ. O microfone não é utilizado nesta etapa."
     );
   }
 
@@ -97,9 +122,22 @@ export default function App() {
               <Text style={styles.subtitle}>ASSISTENTE INTELIGENTE</Text>
             </View>
           </View>
-          <View style={styles.statusPill}>
-            <View style={[styles.statusDot, isThinking && styles.thinkingDot]} />
-            <Text style={styles.statusText}>{isThinking ? "PENSANDO" : "PRONTO"}</Text>
+          <View style={styles.headerActions}>
+            <TouchableOpacity
+              style={[styles.voiceToggle, voiceRepliesEnabled && styles.voiceToggleOn]}
+              onPress={toggleVoiceReplies}
+              accessibilityRole="switch"
+              accessibilityState={{ checked: voiceRepliesEnabled }}
+              accessibilityLabel="Ativar respostas faladas"
+            >
+              <Text style={[styles.voiceToggleText, voiceRepliesEnabled && styles.voiceToggleTextOn]}>
+                VOZ {voiceRepliesEnabled ? "ON" : "OFF"}
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.statusPill}>
+              <View style={[styles.statusDot, isThinking && styles.thinkingDot]} />
+              <Text style={styles.statusText}>{isThinking ? "PENSANDO" : "PRONTO"}</Text>
+            </View>
           </View>
         </View>
 
@@ -169,7 +207,7 @@ export default function App() {
             <Text style={styles.sendGlyph}>➤</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.2.0 · {neroPersona.language.toUpperCase()}</Text>
+        <Text style={styles.footer}>NERO MOBILE · VERSÃO 0.2.1 · {neroPersona.language.toUpperCase()}</Text>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -190,6 +228,14 @@ const styles = StyleSheet.create({
   logoText: { color: "#FFFFFF", fontSize: 25, fontWeight: "800" },
   brand: { color: "#FFFFFF", fontSize: 18, fontWeight: "800", letterSpacing: 2 },
   subtitle: { color: "#8290AA", fontSize: 8, letterSpacing: 1.4, marginTop: 2 },
+  headerActions: { alignItems: "flex-end", gap: 6 },
+  voiceToggle: {
+    paddingHorizontal: 10, paddingVertical: 5, borderRadius: 12,
+    borderWidth: 1, borderColor: "#33415C", backgroundColor: "#172238"
+  },
+  voiceToggleOn: { borderColor: "#328B70", backgroundColor: "#14382F" },
+  voiceToggleText: { color: "#A7B4CC", fontSize: 9, fontWeight: "800", letterSpacing: 1 },
+  voiceToggleTextOn: { color: "#8BE4BD" },
   statusPill: {
     flexDirection: "row", alignItems: "center", gap: 6, paddingHorizontal: 10,
     paddingVertical: 6, borderRadius: 20, backgroundColor: "#142B2B"
