@@ -123,7 +123,7 @@ for select to authenticated using (
 );
 create policy messages_insert_own on public.messages
 for insert to authenticated with check (
-  user_id = (select auth.uid()) and exists (
+  user_id = (select auth.uid()) and role = 'user' and agent is null and exists (
     select 1 from public.conversations c
     where c.id = conversation_id and c.user_id = (select auth.uid())
   )
