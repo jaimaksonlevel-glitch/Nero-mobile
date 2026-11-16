@@ -1,66 +1,60 @@
-# Nero Mobile
+# Nero Mobile — Alpha 0.2.0
 
-Primeira base do aplicativo móvel do assistente Nero, da Level Engenharia.
+Aplicativo Android/iOS da Nero Continuum, assistente universal da Level Engenharia.
 
-## Definições do produto
+## O que está conectado nesta versão
 
-- Plataformas: Android e iOS (Expo / React Native).
-- Ativação planejada: palavra de ativação **“Nero”** (modo Wake).
-- Personalidade: **Hybrid** — técnico e objetivo em engenharia; natural e próximo em conversas.
-- Idioma inicial: português do Brasil.
-- Interface inicial: chat com estrutura visual para entrada por texto e voz.
+- Tela de autenticação por e-mail e senha (Supabase Auth).
+- Criação de conta alpha, respeitando a configuração de confirmação de e-mail do projeto.
+- Sessão persistida no dispositivo com Expo SecureStore.
+- Chat conectado à Edge Function autenticada `continuum-core`.
+- Conversas e mensagens enviadas ao backend, que controla a chamada Groq/Gemini e a persistência.
+- A conversa atual mantém o identificador retornado pelo backend enquanto o aplicativo permanece aberto.
 
-## Backend Supabase
+## Configuração local
 
-O aplicativo usa variáveis públicas de ambiente do Expo para localizar o projeto Supabase. A chave publishable pode estar no cliente; **nunca** coloque sb_secret, service_role ou chaves privadas no aplicativo.
-
-Crie um arquivo .env na raiz com:
+Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 EXPO_PUBLIC_SUPABASE_URL=https://wvlnasrqwrtzbpiefieu.supabase.co
 EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_COLOQUE_SUA_CHAVE_AQUI
 ```
 
-O arquivo .env é ignorado pelo Git. Use .env.example como modelo. A configuração do cliente fica em src/config/supabase.ts.
-
-Antes de habilitar dados de usuários, configure autenticação, políticas RLS em todas as tabelas expostas e funções de backend para operações privilegiadas. A chave publicável não substitui essas proteções.
-
-## Estado desta versão
-
-A versão 0.1.0 cria a estrutura inicial do aplicativo e a primeira interface de conversa. A conexão cliente Supabase está preparada, mas tabelas, autenticação e Edge Functions ainda precisam ser implementadas e testadas no projeto.
-
-**Ainda não estão implementados:** conexão com um modelo de IA, reconhecimento de fala, detecção contínua da palavra “Nero”, síntese de voz e execução em segundo plano. O botão de voz informa essa limitação; ele não simula reconhecimento ativo.
-
-A ativação por palavra-chave exige integração nativa de áudio, permissões explícitas, tratamento de privacidade e testes em aparelhos reais. Essa integração será feita em uma etapa própria, sem deixar o microfone ativo silenciosamente.
-
-## Requisitos
-
-- Node.js LTS
-- npm
-- Expo Go para testes iniciais ou development build quando forem adicionados módulos nativos.
+Use a chave publishable do projeto. **Nunca** coloque `sb_secret`, `service_role`, chaves Groq ou Gemini no aplicativo ou no GitHub. O arquivo `.env` é ignorado pelo Git.
 
 ## Executar
 
+Requer Node.js LTS e npm:
+
 ```bash
 npm install
+npx expo install --check
 npx expo start
 ```
 
-## Próximas etapas
+Para o primeiro teste no Android, use uma versão do Expo Go compatível com o SDK 54 do projeto. Se o aplicativo exigir módulos nativos adicionais no futuro, será necessário gerar um development build.
 
-1. Validar a interface em Android.
-2. Configurar autenticação e persistência de sessão segura no dispositivo.
-3. Criar schema inicial, políticas RLS e Edge Functions no Supabase.
-4. Integrar o serviço de IA exclusivamente pelo backend, mantendo segredos fora do aplicativo.
-5. Adicionar reconhecimento de fala e resposta falada.
-6. Implementar wake word com controles de privacidade, indicador claro de microfone e opção para desligar.
-7. Criar o módulo de assistente técnico para engenharia elétrica.
+## Segurança e privacidade
 
+- A autenticação do Supabase é obrigatória para conversar com a Edge Function.
+- A sessão móvel usa armazenamento seguro do sistema operacional.
+- O aplicativo contém somente a chave publicável; segredos de provedores e chave administrativa permanecem no backend.
+- A autorização por usuário e as políticas RLS permanecem no Supabase.
+- Memória privada ainda não é gravada automaticamente. Qualquer funcionalidade de memória deverá exigir consentimento explícito, controles de consulta e exclusão.
+- O microfone não fica ativo em segundo plano. Reconhecimento de fala, wake word, síntese de voz e sincronização entre dispositivos ainda não estão implementados.
 
-## Banco de dados inicial
+## Limitações conhecidas da Alpha
 
-A primeira migração está em `supabase/migrations/202611150001_initial_private_schema.sql`. Ela cria perfis, conversas, mensagens, memórias privadas, dispositivos e registros de consentimento, com Row Level Security (RLS) habilitada e políticas limitadas ao usuário autenticado (`auth.uid()`).
+- O aplicativo ainda precisa ser instalado e testado em aparelho Android real.
+- É necessário configurar as variáveis de ambiente no ambiente de build.
+- A autenticação e a chamada real à IA ainda precisam ser validadas com a conta alpha.
+- A tela ainda não apresenta uma lista para reabrir conversas antigas, embora o backend persista as mensagens.
+- A interface de voz e a memória com consentimento ainda não foram integradas ao aplicativo.
 
-**Aplicação ainda necessária no Supabase:** abra o projeto no painel, entre em **SQL Editor**, crie uma consulta, copie o conteúdo integral desse arquivo de migração e execute. Depois confira em **Table Editor** se as seis tabelas foram criadas e em **Authentication → Policies** se as políticas RLS estão habilitadas. Não rode a migração repetidamente sem antes revisar o estado do banco; os comandos de criação de políticas não são idempotentes.
+## Backend
 
-Esta migração é a base inicial, não o backend completo. Ainda faltam configurar autenticação, testar isolamento com duas contas distintas e criar Edge Functions autenticadas para IA. A chave publicável não concede acesso por si só: as políticas RLS são essenciais.
+Projeto Supabase: `wvlnasrqwrtzbpiefieu`
+
+Edge Function: `continuum-core` (JWT obrigatório). Estratégia de IA: Groq primário com fallback Gemini, conforme secrets configurados no backend.
+
+O schema inicial está em `supabase/migrations/202611150001_initial_private_schema.sql`. O banco atualmente possui as tabelas e políticas RLS descritas no histórico do projeto; não execute a migração novamente sem revisar o estado atual.
