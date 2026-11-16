@@ -1,0 +1,52 @@
+name: Build Nero Mobile Android Alpha APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "App.tsx"
+      - "app.json"
+      - "package.json"
+      - "src/**"
+      - ".github/workflows/android-alpha-apk.yml"
+
+jobs:
+  android-debug:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+      EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Validate public Supabase configuration
+        run: |
+          test -n "$EXPO_PUBLIC_SUPABASE_URL" || (echo "Missing repository secret EXPO_PUBLIC_SUPABASE_URL" && exit 1)
+          test -n "$EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY" || (echo "Missing repository secret EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY" && exit 1)
+      - name: Install dependencies
+        run: npm install
+      - name: Check Expo dependencies
+        run: npx expo install --check
+      - name: Generate native Android project
+        run: npx expo prebuild --platform android --no-install
+      - name: Build debug APK
+        working-directory: android
+        run: ./gradlew assembleDebug --no-daemon
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: nero-mobile-alpha-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 14
