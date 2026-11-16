@@ -55,3 +55,12 @@ npx expo start
 5. Adicionar reconhecimento de fala e resposta falada.
 6. Implementar wake word com controles de privacidade, indicador claro de microfone e opção para desligar.
 7. Criar o módulo de assistente técnico para engenharia elétrica.
+
+
+## Banco de dados inicial
+
+A primeira migração está em `supabase/migrations/202611150001_initial_private_schema.sql`. Ela cria perfis, conversas, mensagens, memórias privadas, dispositivos e registros de consentimento, com Row Level Security (RLS) habilitada e políticas limitadas ao usuário autenticado (`auth.uid()`).
+
+**Aplicação ainda necessária no Supabase:** abra o projeto no painel, entre em **SQL Editor**, crie uma consulta, copie o conteúdo integral desse arquivo de migração e execute. Depois confira em **Table Editor** se as seis tabelas foram criadas e em **Authentication → Policies** se as políticas RLS estão habilitadas. Não rode a migração repetidamente sem antes revisar o estado do banco; os comandos de criação de políticas não são idempotentes.
+
+Esta migração é a base inicial, não o backend completo. Ainda faltam configurar autenticação, testar isolamento com duas contas distintas e criar Edge Functions autenticadas para IA. A chave publicável não concede acesso por si só: as políticas RLS são essenciais.
